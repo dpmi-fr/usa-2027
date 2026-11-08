@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>New York · Novembre 2026</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: a subway-line index — one stop per day, today highlighted */
+:root{
+  --bg:#f5f6f4; --card:#ffffff; --fg:#16181a; --muted:#5d6468; --line:#d9ddda;
+  --accent:#0a6e52; --accent-soft:#e2f0ea; --now:#f2b705;
+  --display:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#111416; --card:#1a1e21; --fg:#eef1ef; --muted:#9aa3a7; --line:#2c3236;
+  --accent:#4fc39a; --accent-soft:#16312a; color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--display);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:max(24px,env(safe-area-inset-top,0px)) 48px}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
+.eyebrow{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:40px;line-height:1.05;font-weight:800;margin:4px 0 0;letter-spacing:-.02em;text-wrap:balance}
+header p{margin:8px 0 0;color:var(--muted)}
+ol{list-style:none;margin:0;padding:0;position:relative}
+ol::before{content:"";position:absolute;left:19px;top:20px;bottom:20px;width:4px;border-radius:2px;background:var(--line)}
+li{position:relative;padding-left:52px;margin-bottom:12px}
+.dot{position:absolute;left:6px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;
+  background:var(--card);border:4px solid var(--line);display:grid;place-items:center;font:600 13px var(--mono)}
+.day{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+a.day{border-color:var(--accent)}
+a.day:hover,a.day:focus-visible{background:var(--accent-soft);outline:none}
+li.ready .dot{border-color:var(--accent)}
+li.today .dot{border-color:var(--now);box-shadow:0 0 0 5px color-mix(in srgb,var(--now) 30%,transparent)}
+.date{font:600 13px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.title{font-size:19px;font-weight:700;line-height:1.25;margin-top:2px}
+.soon .title{color:var(--muted);font-weight:600}
+.tag{display:none;margin-left:8px;background:var(--now);color:#1a1400;border-radius:999px;padding:1px 8px;font:600 11px var(--mono);letter-spacing:.06em}
+li.today .tag{display:inline-block}
+footer{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Home2 Suites · 150 W 48th St</div>
+    <h1>New York, 7 au 14 novembre 2026</h1>
+    <p>Un programme par jour, avec les itinéraires Google Maps à pied ou en métro.</p>
+  </header>
+  <ol id="days"></ol>
+  <footer>Ajoutez cette page à l'écran d'accueil pour l'ouvrir en un tap.</footer>
+</div>
+<script>
+// Fill "page" when a day's programme exists
+const days = [
+  {d:"2026-11-08", label:"Dimanche 8", title:"West Village, Greenwich Village et Jazz Vespers", page:"2026-11-08-dimanche.html"},
+  {d:"2026-11-09", label:"Lundi 9"},
+  {d:"2026-11-10", label:"Mardi 10"},
+  {d:"2026-11-11", label:"Mercredi 11"},
+  {d:"2026-11-12", label:"Jeudi 12"},
+  {d:"2026-11-13", label:"Vendredi 13"},
+  {d:"2026-11-14", label:"Samedi 14", title:"Départ"},
+];
+let today="";
+try{
+  const p=Object.fromEntries(new Intl.DateTimeFormat("en-CA",{timeZone:"America/New_York",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date()).map(x=>[x.type,x.value]));
+  today=`${p.year}-${p.month}-${p.day}`;
+}catch(e){}
+document.getElementById("days").innerHTML = days.map((x,i)=>{
+  const cls=[x.page?"ready":"soon", x.d===today?"today":""].join(" ");
+  const inner=`<div class="date">${x.label} nov.<span class="tag">AUJOURD'HUI</span></div>
+    <div class="title">${x.title || "À venir"}</div>`;
+  return `<li class="${cls}"><div class="dot">${i+1}</div>${x.page?`<a class="day" href="${x.page}">${inner}</a>`:`<div class="day">${inner}</div>`}</li>`;
+}).join("");
+</script>
+</body>
+</html>

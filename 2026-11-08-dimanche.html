@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}</style>
+<title>NYC · Dimanche 8 nov.</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one column like a subway strip map — stops on a vertical line, each with "go" buttons */
+:root{
+  --bg:#f5f6f4; --card:#ffffff; --fg:#16181a; --muted:#5d6468; --line:#d9ddda;
+  --accent:#0a6e52; --accent-soft:#e2f0ea; --now:#f2b705;
+  --l1:#ee352e; --lE:#0039a6;
+  --display:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111416; --card:#1a1e21; --fg:#eef1ef; --muted:#9aa3a7; --line:#2c3236;
+  --accent:#4fc39a; --accent-soft:#16312a; --now:#f2b705; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111416; --card:#1a1e21; --fg:#eef1ef; --muted:#9aa3a7; --line:#2c3236;
+  --accent:#4fc39a; --accent-soft:#16312a; --now:#f2b705; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 var(--display);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header h1{font-size:30px;line-height:1.1;font-weight:800;margin:0;text-wrap:balance;letter-spacing:-.01em}
+header p{margin:6px 0 0;color:var(--muted)}
+.eyebrow{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.map{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px}
+.map svg{display:block;width:100%;height:auto}
+.legend{font-size:13px;color:var(--muted);padding:4px 8px 6px}
+.all{display:flex;flex-wrap:wrap;gap:8px}
+ol.steps{list-style:none;margin:0;padding:0;position:relative}
+ol.steps::before{content:"";position:absolute;left:19px;top:8px;bottom:8px;width:4px;border-radius:2px;background:var(--line)}
+.step{position:relative;padding-left:52px;padding-bottom:22px}
+.dot{position:absolute;left:6px;top:2px;width:30px;height:30px;border-radius:50%;background:var(--card);border:4px solid var(--accent);
+  display:grid;place-items:center;font:600 13px var(--mono);color:var(--fg)}
+.step.move .dot{border-style:dashed;border-color:var(--muted);font-size:15px}
+.step.now .dot{border-color:var(--now);box-shadow:0 0 0 5px color-mix(in srgb,var(--now) 30%,transparent)}
+.time{font:600 14px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.now-tag{display:none;margin-left:8px;background:var(--now);color:#1a1400;border-radius:999px;padding:1px 8px;font:600 11px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.step.now .now-tag{display:inline-block}
+.step h2{font-size:20px;margin:2px 0 4px;line-height:1.2}
+.step p{margin:0 0 8px;color:var(--fg)}
+.step .sub{color:var(--muted);font-size:14px}
+.ideas{margin:4px 0 10px;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-size:15px}
+.ideas li::before{content:"→ ";color:var(--accent)}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.opt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.opt .lbl{font-size:14px;margin-bottom:8px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+a.btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:600;font-size:14px;
+  padding:9px 13px;border-radius:999px;border:1.5px solid var(--accent);color:var(--accent);background:transparent;min-height:40px}
+a.btn.solid{background:var(--accent);color:var(--bg)}
+a.btn:focus-visible{outline:3px solid var(--now);outline-offset:2px}
+.bullet{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;color:#fff;font:800 13px var(--display);vertical-align:-5px;margin:0 2px}
+.b1{background:var(--l1)} .bE{background:var(--lE)}
+.tips{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:14px}
+.tips b{display:block;margin-bottom:4px}
+.tips ul{margin:0;padding-left:18px}
+footer{font-size:13px;color:var(--muted)}
+.back{display:inline-block;margin-bottom:8px;text-decoration:none;color:var(--muted)}
+</style>
+
+<div class="wrap">
+  <header>
+    <a class="eyebrow back" href="./">← Tous les jours</a><div class="eyebrow">Jour 1 · Dimanche 8 novembre</div>
+    <h1>West Village, Greenwich Village et Jazz Vespers</h1>
+    <p>Départ du Home2 Suites, 150 W 48th St. Chaque bouton ouvre l'itinéraire dans Google Maps depuis l'endroit où vous êtes.</p>
+  </header>
+
+  <div class="map" aria-label="Plan schématique de la journée">
+    <svg id="map" viewBox="0 0 320 300" role="img"></svg>
+    <div class="legend">Plan schématique, nord en haut de l'axe de Manhattan. Les numéros correspondent aux étapes.</div>
+  </div>
+
+  <div class="all">
+    <a class="btn solid" id="allWalk" target="_blank" rel="noopener">Balade West Village complète, à pied</a>
+  </div>
+
+  <ol class="steps" id="steps"></ol>
+
+  <div class="tips">
+    <b>Pratique</b>
+    <ul>
+      <li>Métro : approchez le téléphone ou la carte bancaire sans contact du lecteur OMNY au tourniquet, 3 $ le trajet (plafond hebdo automatique après 12 trajets).</li>
+      <li>Le week-end, des lignes sont parfois déviées : suivez Google Maps, qui en tient compte en direct.</li>
+      <li>Coucher du soleil vers 16h40 : la remontée par la 5e Avenue se fait à la tombée du jour.</li>
+    </ul>
+  </div>
+
+  <footer>Ajoutez la page à l'écran d'accueil (Safari : Partager → Sur l'écran d'accueil ; Chrome : ⋮ → Ajouter à l'écran d'accueil) pour l'ouvrir en un tap.</footer>
+</div>
+
+<script>
+const P = {
+  hotel:   {n:"Hôtel", lat:40.7593, lng:-73.9830, q:"150 W 48th St, New York, NY 10036"},
+  chris:   {n:"Christopher St", lat:40.7334, lng:-74.0029, q:"Christopher St - Stonewall Station, New York"},
+  grove:   {lat:40.7329, lng:-74.0049, q:"Grove St & Bedford St, New York"},
+  perry:   {lat:40.7354, lng:-74.0040, q:"Bleecker St & Perry St, New York"},
+  bedford: {lat:40.7311, lng:-74.0057, q:"75 1/2 Bedford St, New York"},
+  lunch:   {lat:40.7330, lng:-74.0036, q:"Bleecker St & Grove St, New York"},
+  wsp:     {n:"Washington Sq", lat:40.7312, lng:-73.9971, q:"Washington Square Arch, New York"},
+  w4:      {lat:40.7322, lng:-74.0005, q:"W 4 St - Washington Sq Station, New York"},
+  stp:     {n:"Saint Peter's", lat:40.7586, lng:-73.9704, q:"Saint Peter's Church, 619 Lexington Ave, New York, NY 10022"},
+};
+const G = (p,mode,way)=>"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(p.q)+"&travelmode="+mode+
+  (way?"&waypoints="+encodeURIComponent(way.map(w=>w.q).join("|")):"");
+const A = (p,mode)=>"https://maps.apple.com/?daddr="+encodeURIComponent(p.q)+"&dirflg="+(mode==="transit"?"r":"w");
+const btns = (p,way)=>`<div class="btns">
+  <a class="btn" target="_blank" rel="noopener" href="${G(p,'walking',way)}">🚶 Y aller à pied</a>
+  <a class="btn" target="_blank" rel="noopener" href="${G(p,'transit')}">🚇 Y aller en métro</a></div>`;
+const one = (p,mode,label)=>`<a class="btn solid" target="_blank" rel="noopener" href="${G(p,mode)}">Ouvrir dans Google Maps</a>`;
+
+const steps = [
+ {t:"10:30", m:630, move:true, h:"Hôtel → West Village",
+  body:`<div class="opts">
+   <div class="opt"><div class="lbl">Métro <span class="bullet b1">1</span> à <b>50 St</b> (Broadway, à 3 min de l'hôtel), direction Downtown / South Ferry. Descendre à <b>Christopher St – Stonewall</b>, 7 arrêts, environ 15 min.</div><div class="btns">${one(P.chris,'transit','métro')}</div></div>
+   <div class="opt"><div class="lbl">À pied : environ 4 km, 50 min par la 7e Avenue et Chelsea.</div><div class="btns">${one(P.chris,'walking','à pied')}</div></div>
+  </div>`},
+ {t:"11:00", m:660, h:"West Village", p:P.grove,
+  body:`<p>Petites rues, boutiques indépendantes et cafés. Boucle conseillée :</p>
+  <ul class="ideas"><li>Grove St, l'angle avec Bedford St et ses maisons de briques</li><li>Bleecker St jusqu'à Perry St</li><li>Bedford St et le n° 75½, la maison la plus étroite de la ville</li></ul>
+  ${btns(P.grove)}`},
+ {t:"13:00", m:780, h:"Déjeuner", p:P.lunch,
+  body:`<p>Brunch du dimanche dans le West Village, autour de Bleecker et Grove St. Les adresses connues ont la queue à cette heure, prévoyez 20 à 30 min ou mettez-vous sur liste d'attente en arrivant.</p>
+  <p class="sub">Pas encore choisi : dites-moi ce qui vous tente et je l'ajoute ici.</p>${btns(P.lunch)}`},
+ {t:"14:15", m:855, h:"Greenwich Village", p:P.wsp,
+  body:`<p>Washington Square Park (l'arche, les musiciens de rue, le pianiste quand il est là), les disquaires et boutiques de Bleecker et W 4th St. 10 min à pied depuis le déjeuner.</p>${btns(P.wsp)}`},
+ {t:"15:45", m:945, move:true, h:"Greenwich → Saint Peter's",
+  body:`<div class="opts">
+   <div class="opt"><div class="lbl"><b>À pied par la 5e Avenue</b> (on aime marcher) : environ 4 km, 55 min. Flatiron, vue sur l'Empire State, la New York Public Library, Rockefeller Center, puis à droite sur la 54e jusqu'à Lexington.</div><div class="btns">${one(P.stp,'walking','à pied')}</div></div>
+   <div class="opt"><div class="lbl">Métro <span class="bullet bE">E</span> à <b>W 4 St</b>, direction Uptown / Jamaica. Descendre à <b>Lexington Av / 53 St</b> : la sortie donne sur l'église. Environ 20 min.</div><div class="btns">${one(P.stp,'transit','métro')}</div></div>
+  </div>`},
+ {t:"17:00", m:1000, h:"Jazz Vespers", p:P.stp,
+  body:`<p>Saint Peter's Church, avec Jay Leonhart à la contrebasse. Office jazz d'une heure, tous les dimanches depuis 1965. Arrivée conseillée vers 16h40.</p>
+  <p class="sub">619 Lexington Ave, angle 54th St · entrée gratuite, dons bienvenus</p>${btns(P.stp)}`},
+ {t:"18:00", m:1080, move:true, h:"Retour à l'hôtel",
+  body:`<div class="opts"><div class="opt"><div class="lbl">À pied : environ 1,3 km, 18 min par la 54e puis la 6e Avenue, devant Rockefeller Center illuminé.</div><div class="btns">${one(P.hotel,'walking','à pied')}</div></div></div>`},
+];
+
+let n=0;
+document.getElementById("steps").innerHTML = steps.map(s=>{
+  const lab = s.move ? "↓" : (++n);
+  s.num = s.move?null:n;
+  return `<li class="step${s.move?' move':''}" data-m="${s.m}">
+    <div class="dot">${lab}</div>
+    <div class="time">${s.t.replace(':','h')}<span class="now-tag">Maintenant</span></div>
+    <h2>${s.h}</h2>${s.body}</li>`;
+}).join("");
+
+document.getElementById("allWalk").href = G(P.bedford,'walking',[P.grove,P.perry]);
+
+// Highlight current step (New York time, today only)
+try{
+  const f = new Intl.DateTimeFormat("en-CA",{timeZone:"America/New_York",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"});
+  const parts = Object.fromEntries(f.formatToParts(new Date()).map(x=>[x.type,x.value]));
+  if(`${parts.year}-${parts.month}-${parts.day}`==="2026-11-08"){
+    const mins = (+parts.hour)*60+(+parts.minute);
+    const items=[...document.querySelectorAll(".step")];
+    let cur=null; items.forEach(li=>{ if(mins>=+li.dataset.m-15) cur=li; });
+    if(cur && mins<1110) cur.classList.add("now");
+  }
+}catch(e){}
+
+// Schematic map: project lat/lng, rotate so Manhattan's grid runs vertical
+(function(){
+  const svg=document.getElementById("map"), NS="http://www.w3.org/2000/svg";
+  const pts=[["H",P.hotel],["1",P.grove],["2",P.lunch],["3",P.wsp],["4",P.stp]];
+  const route=[P.hotel,P.chris,P.grove,P.perry,P.bedford,P.lunch,P.wsp,P.stp,P.hotel];
+  const k=Math.cos(40.75*Math.PI/180), a=-29*Math.PI/180;
+  const pr=p=>{const x=p.lng*k, y=-p.lat; return [x*Math.cos(a)-y*Math.sin(a), x*Math.sin(a)+y*Math.cos(a)];};
+  const all=route.map(pr), xs=all.map(p=>p[0]), ys=all.map(p=>p[1]);
+  const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+  const W=320,H=300,pad=36, s=Math.min((W-2*pad)/(maxX-minX),(H-2*pad)/(maxY-minY));
+  const ox=(W-(maxX-minX)*s)/2, oy=(H-(maxY-minY)*s)/2;
+  const T=p=>{const q=pr(p);return [ox+(q[0]-minX)*s, oy+(q[1]-minY)*s];};
+  const el=(t,at)=>{const e=document.createElementNS(NS,t);for(const k in at)e.setAttribute(k,at[k]);svg.appendChild(e);return e;};
+  const css=v=>`var(${v})`;
+  // legs
+  const legs=[[0,2,"--l1",true],[2,7,"--accent",false],[6,8,"--muted",true],[7,9,"--accent",false]];
+  el("polyline",{points:route.slice(0,2).map(T).join(" ")+" "+T(P.grove).join(","),fill:"none",stroke:css("--l1"),"stroke-width":3,"stroke-dasharray":"2 6","stroke-linecap":"round"});
+  el("polyline",{points:[P.chris,P.grove,P.perry,P.bedford,P.lunch,P.wsp].map(T).join(" "),fill:"none",stroke:css("--accent"),"stroke-width":4,"stroke-linejoin":"round","stroke-linecap":"round"});
+  el("polyline",{points:[P.wsp,P.stp].map(T).join(" "),fill:"none",stroke:css("--muted"),"stroke-width":3,"stroke-dasharray":"8 6","stroke-linecap":"round"});
+  el("polyline",{points:[P.stp,P.hotel].map(T).join(" "),fill:"none",stroke:css("--accent"),"stroke-width":4,"stroke-linecap":"round"});
+  const names={H:"Hôtel · 48th St","1":"West Village","2":"Déjeuner","3":"Washington Sq","4":"Saint Peter's"};
+  const off={H:[12,4,"start"],"1":[-14,4,"end"],"2":[14,-10,"start"],"3":[14,4,"start"],"4":[-14,4,"end"]};
+  pts.forEach(([l,p])=>{
+    const [x,y]=T(p);
+    el("circle",{cx:x,cy:y,r:11,fill:css("--card"),stroke:l==="H"?css("--fg"):css("--accent"),"stroke-width":3});
+    const t=el("text",{x:x,y:y+4,"text-anchor":"middle","font-size":11,"font-weight":700,fill:css("--fg"),"font-family":"IBM Plex Mono, monospace"});t.textContent=l;
+    const o=off[l]; const u=el("text",{x:x+o[0],y:y+o[1],"text-anchor":o[2],"font-size":12,"font-weight":600,fill:css("--muted"),"font-family":"Archivo, sans-serif"});u.textContent=names[l];
+  });
+})();
+</script>
+
+</html>
