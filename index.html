@@ -41,6 +41,7 @@ li.today .dot{border-color:var(--now);box-shadow:0 0 0 5px color-mix(in srgb,var
 .tag{display:none;margin-left:8px;background:var(--now);color:#1a1400;border-radius:999px;padding:1px 8px;font:600 11px var(--mono);letter-spacing:.06em}
 li.today .tag{display:inline-block}
 footer{font-size:13px;color:var(--muted)}
+.km{font:600 13px var(--mono);color:var(--accent);margin-top:4px}
 </style>
 </head>
 <body>
@@ -56,8 +57,8 @@ footer{font-size:13px;color:var(--muted)}
 <script>
 // Fill "page" when a day's programme exists
 const days = [
-  {d:"2026-11-08", label:"Dimanche 8", title:"West Village, Greenwich Village et Jazz Vespers", page:"2026-11-08-dimanche.html"},
-  {d:"2026-11-09", label:"Lundi 9"},
+  {d:"2026-11-08", label:"Dimanche 8", title:"West Village, Greenwich Village et Jazz Vespers", page:"2026-11-08-dimanche.html", km:"≈ 14 km · 19 000 pas"},
+  {d:"2026-11-09", label:"Lundi 9", title:"Nintendo, Rockefeller Center, 5e Avenue et Top of the Rock", page:"2026-11-09-lundi.html", km:"≈ 5 km · 7 000 pas"},
   {d:"2026-11-10", label:"Mardi 10"},
   {d:"2026-11-11", label:"Mercredi 11"},
   {d:"2026-11-12", label:"Jeudi 12"},
@@ -72,7 +73,7 @@ try{
 document.getElementById("days").innerHTML = days.map((x,i)=>{
   const cls=[x.page?"ready":"soon", x.d===today?"today":""].join(" ");
   const inner=`<div class="date">${x.label} nov.<span class="tag">AUJOURD'HUI</span></div>
-    <div class="title">${x.title || "À venir"}</div>`;
+    <div class="title">${x.title || "À venir"}</div>${x.km?`<div class="km">🚶 ${x.km}</div>`:""}`;
   return `<li class="${cls}"><div class="dot">${i+1}</div>${x.page?`<a class="day" href="${x.page}">${inner}</a>`:`<div class="day">${inner}</div>`}</li>`;
 }).join("");
 </script>

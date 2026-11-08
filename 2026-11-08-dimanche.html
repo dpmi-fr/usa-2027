@@ -61,6 +61,11 @@ a.btn:focus-visible{outline:3px solid var(--now);outline-offset:2px}
 .tips b{display:block;margin-bottom:4px}
 .tips ul{margin:0;padding-left:18px}
 footer{font-size:13px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-width:0}
+.stats b{display:block;font:600 22px var(--mono);font-variant-numeric:tabular-nums;color:var(--accent);line-height:1.2}
+.stats span{font-size:13px;color:var(--muted)}
+.stats-note{font-size:13px;color:var(--muted);margin:-12px 0 0}
 .back{display:inline-block;margin-bottom:8px;text-decoration:none;color:var(--muted)}
 </style>
 
@@ -70,6 +75,13 @@ footer{font-size:13px;color:var(--muted)}
     <h1>West Village, Greenwich Village et Jazz Vespers</h1>
     <p>Départ du Home2 Suites, 150 W 48th St. Chaque bouton ouvre l'itinéraire dans Google Maps depuis l'endroit où vous êtes.</p>
   </header>
+
+  <div class="stats" aria-label="Estimation de marche">
+    <div><b>≈ 14 km</b><span>tout à pied</span></div>
+    <div><b>≈ 19 000</b><span>pas</span></div>
+    <div><b>≈ 3 h</b><span>de marche</span></div>
+  </div>
+  <p class="stats-note">Avec le métro 1 à l'aller et le E vers Saint Peter's : environ 6 km et 8 000 pas.</p>
 
   <div class="map" aria-label="Plan schématique de la journée">
     <svg id="map" viewBox="0 0 320 300" role="img"></svg>
