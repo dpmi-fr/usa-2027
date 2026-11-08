@@ -72,16 +72,16 @@ footer{font-size:13px;color:var(--muted)}
 <div class="wrap">
   <header>
     <a class="eyebrow back" href="./">← Tous les jours</a><div class="eyebrow">Jour 1 · Dimanche 8 novembre</div>
-    <h1>West Village, Greenwich Village et Jazz Vespers</h1>
+    <h1>West Village, Greenwich Village, Jazz Vespers et Best Buy</h1>
     <p>Départ du Home2 Suites, 150 W 48th St. Chaque bouton ouvre l'itinéraire dans Google Maps depuis l'endroit où vous êtes.</p>
   </header>
 
   <div class="stats" aria-label="Estimation de marche">
-    <div><b>≈ 14 km</b><span>tout à pied</span></div>
-    <div><b>≈ 19 000</b><span>pas</span></div>
-    <div><b>≈ 3 h</b><span>de marche</span></div>
+    <div><b>≈ 15 km</b><span>tout à pied</span></div>
+    <div><b>≈ 20 000</b><span>pas</span></div>
+    <div><b>≈ 3 h 15</b><span>de marche</span></div>
   </div>
-  <p class="stats-note">Avec le métro 1 à l'aller et le E vers Saint Peter's : environ 6 km et 8 000 pas.</p>
+  <p class="stats-note">Avec le métro 1 à l'aller et le E vers Saint Peter's : environ 7 km et 9 500 pas.</p>
 
   <div class="map" aria-label="Plan schématique de la journée">
     <svg id="map" viewBox="0 0 320 300" role="img"></svg>
@@ -113,7 +113,8 @@ const P = {
   grove:   {lat:40.7329, lng:-74.0049, q:"Grove St & Bedford St, New York"},
   perry:   {lat:40.7354, lng:-74.0040, q:"Bleecker St & Perry St, New York"},
   bedford: {lat:40.7311, lng:-74.0057, q:"75 1/2 Bedford St, New York"},
-  lunch:   {lat:40.7330, lng:-74.0036, q:"Bleecker St & Grove St, New York"},
+  lunch:   {lat:40.7329, lng:-74.0030, q:"Boucherie West Village, 99 7th Ave S, New York, NY 10014"},
+  bb:      {lat:40.7537, lng:-73.9806, q:"Best Buy, 531 5th Ave, New York, NY 10017"},
   wsp:     {n:"Washington Sq", lat:40.7312, lng:-73.9971, q:"Washington Square Arch, New York"},
   w4:      {lat:40.7322, lng:-74.0005, q:"W 4 St - Washington Sq Station, New York"},
   stp:     {n:"Saint Peter's", lat:40.7586, lng:-73.9704, q:"Saint Peter's Church, 619 Lexington Ave, New York, NY 10022"},
@@ -136,9 +137,9 @@ const steps = [
   body:`<p>Petites rues, boutiques indépendantes et cafés. Boucle conseillée :</p>
   <ul class="ideas"><li>Grove St, l'angle avec Bedford St et ses maisons de briques</li><li>Bleecker St jusqu'à Perry St</li><li>Bedford St et le n° 75½, la maison la plus étroite de la ville</li></ul>
   ${btns(P.grove)}`},
- {t:"13:00", m:780, h:"Déjeuner", p:P.lunch,
-  body:`<p>Brunch du dimanche dans le West Village, autour de Bleecker et Grove St. Les adresses connues ont la queue à cette heure, prévoyez 20 à 30 min ou mettez-vous sur liste d'attente en arrivant.</p>
-  <p class="sub">Pas encore choisi : dites-moi ce qui vous tente et je l'ajoute ici.</p>${btns(P.lunch)}`},
+ {t:"13:00", m:780, h:"Déjeuner · Boucherie", p:P.lunch,
+  body:`<p>Brasserie française du West Village, juste à côté de Village Cigars et de la station Christopher St. Le week-end, mieux vaut réserver sur OpenTable ou s'inscrire en arrivant.</p>
+  <p class="sub">99 7th Ave South, angle Barrow St</p>${btns(P.lunch)}`},
  {t:"14:15", m:855, h:"Greenwich Village", p:P.wsp,
   body:`<p>Washington Square Park (l'arche, les musiciens de rue, le pianiste quand il est là), les disquaires et boutiques de Bleecker et W 4th St. 10 min à pied depuis le déjeuner.</p>${btns(P.wsp)}`},
  {t:"15:45", m:945, move:true, h:"Greenwich → Saint Peter's",
@@ -149,8 +150,11 @@ const steps = [
  {t:"17:00", m:1000, h:"Jazz Vespers", p:P.stp,
   body:`<p>Saint Peter's Church, avec Jay Leonhart à la contrebasse. Office jazz d'une heure, tous les dimanches depuis 1965. Arrivée conseillée vers 16h40.</p>
   <p class="sub">619 Lexington Ave, angle 54th St · entrée gratuite, dons bienvenus</p>${btns(P.stp)}`},
- {t:"18:00", m:1080, move:true, h:"Retour à l'hôtel",
-  body:`<div class="opts"><div class="opt"><div class="lbl">À pied : environ 1,3 km, 18 min par la 54e puis la 6e Avenue, devant Rockefeller Center illuminé.</div><div class="btns">${one(P.hotel,'walking','à pied')}</div></div></div>`},
+ {t:"18:15", m:1095, h:"Best Buy · 5e Avenue", p:P.bb,
+  body:`<p>Sur le chemin du retour : 15 minutes à pied depuis l'église en descendant Madison ou la 5e Avenue. Le magasin ferme vers 19h le dimanche, donc environ 45 minutes sur place.</p>
+  <p class="sub">531 5th Ave, angle 44th St</p>${btns(P.bb)}`},
+ {t:"19:00", m:1140, move:true, h:"Retour à l'hôtel",
+  body:`<div class="opts"><div class="opt"><div class="lbl">À pied : environ 900 m, 12 min par la 5e puis la 48e Rue, en passant devant Rockefeller Center illuminé.</div><div class="btns">${one(P.hotel,'walking','à pied')}</div></div></div>`},
 ];
 
 let n=0;
@@ -173,15 +177,15 @@ try{
     const mins = (+parts.hour)*60+(+parts.minute);
     const items=[...document.querySelectorAll(".step")];
     let cur=null; items.forEach(li=>{ if(mins>=+li.dataset.m-15) cur=li; });
-    if(cur && mins<1110) cur.classList.add("now");
+    if(cur && mins<1170) cur.classList.add("now");
   }
 }catch(e){}
 
 // Schematic map: project lat/lng, rotate so Manhattan's grid runs vertical
 (function(){
   const svg=document.getElementById("map"), NS="http://www.w3.org/2000/svg";
-  const pts=[["H",P.hotel],["1",P.grove],["2",P.lunch],["3",P.wsp],["4",P.stp]];
-  const route=[P.hotel,P.chris,P.grove,P.perry,P.bedford,P.lunch,P.wsp,P.stp,P.hotel];
+  const pts=[["H",P.hotel],["1",P.grove],["2",P.lunch],["3",P.wsp],["4",P.stp],["5",P.bb]];
+  const route=[P.hotel,P.chris,P.grove,P.perry,P.bedford,P.lunch,P.wsp,P.stp,P.bb,P.hotel];
   const k=Math.cos(40.75*Math.PI/180), a=-29*Math.PI/180;
   const pr=p=>{const x=p.lng*k, y=-p.lat; return [x*Math.cos(a)-y*Math.sin(a), x*Math.sin(a)+y*Math.cos(a)];};
   const all=route.map(pr), xs=all.map(p=>p[0]), ys=all.map(p=>p[1]);
@@ -196,9 +200,9 @@ try{
   el("polyline",{points:route.slice(0,2).map(T).join(" ")+" "+T(P.grove).join(","),fill:"none",stroke:css("--l1"),"stroke-width":3,"stroke-dasharray":"2 6","stroke-linecap":"round"});
   el("polyline",{points:[P.chris,P.grove,P.perry,P.bedford,P.lunch,P.wsp].map(T).join(" "),fill:"none",stroke:css("--accent"),"stroke-width":4,"stroke-linejoin":"round","stroke-linecap":"round"});
   el("polyline",{points:[P.wsp,P.stp].map(T).join(" "),fill:"none",stroke:css("--muted"),"stroke-width":3,"stroke-dasharray":"8 6","stroke-linecap":"round"});
-  el("polyline",{points:[P.stp,P.hotel].map(T).join(" "),fill:"none",stroke:css("--accent"),"stroke-width":4,"stroke-linecap":"round"});
-  const names={H:"Hôtel · 48th St","1":"West Village","2":"Déjeuner","3":"Washington Sq","4":"Saint Peter's"};
-  const off={H:[12,4,"start"],"1":[-14,4,"end"],"2":[14,-10,"start"],"3":[14,4,"start"],"4":[-14,4,"end"]};
+  el("polyline",{points:[P.stp,P.bb,P.hotel].map(T).join(" "),fill:"none",stroke:css("--accent"),"stroke-width":4,"stroke-linecap":"round"});
+  const names={H:"Hôtel · 48th St","1":"West Village","2":"Déjeuner","3":"Washington Sq","4":"Saint Peter's","5":"Best Buy"};
+  const off={H:[12,4,"start"],"1":[-14,4,"end"],"2":[14,-10,"start"],"3":[14,4,"start"],"4":[-14,4,"end"],"5":[14,4,"start"]};
   pts.forEach(([l,p])=>{
     const [x,y]=T(p);
     el("circle",{cx:x,cy:y,r:11,fill:css("--card"),stroke:l==="H"?css("--fg"):css("--accent"),"stroke-width":3});
