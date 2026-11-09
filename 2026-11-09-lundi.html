@@ -72,14 +72,14 @@ footer{font-size:13px;color:var(--muted)}
 <div class="wrap">
   <header>
     <a class="eyebrow back" href="./">← Tous les jours</a><div class="eyebrow">Jour 2 · Lundi 9 novembre</div>
-    <h1>Nintendo, Rockefeller Center, 5e Avenue et Top of the Rock</h1>
+    <h1>Nintendo, Rockefeller Center, 5e Avenue, Top of the Rock et Times Square</h1>
     <p>Journée sans métro : tout est à moins de 10 minutes à pied de l'hôtel. Chaque bouton ouvre l'itinéraire dans Google Maps depuis l'endroit où vous êtes.</p>
   </header>
 
   <div class="stats" aria-label="Estimation de marche">
-    <div><b>≈ 5 km</b><span>tout à pied</span></div>
-    <div><b>≈ 7 000</b><span>pas</span></div>
-    <div><b>≈ 1 h 10</b><span>de marche</span></div>
+    <div><b>≈ 6 km</b><span>tout à pied</span></div>
+    <div><b>≈ 8 500</b><span>pas</span></div>
+    <div><b>≈ 1 h 25</b><span>de marche</span></div>
   </div>
   <p class="stats-note">Hors piétinement dans les boutiques, qui ajoute facilement 2 000 à 3 000 pas.</p>
 
@@ -105,6 +105,8 @@ const P = {
   stpat:   {q:"St. Patrick's Cathedral, 5th Ave, New York, NY"},
   lego:    {q:"LEGO Store Fifth Avenue, 636 5th Ave, New York, NY"},
   totr:    {q:"Top of the Rock, 30 Rockefeller Plaza, New York, NY"},
+  bb:      {q:"Best Buy, 531 5th Ave, New York, NY 10017"},
+  gs:      {q:"Grand Slam New York, 1557 Broadway, New York, NY 10036"},
   hotel:   {q:"150 W 48th St, New York, NY 10036"},
 };
 const G = (p,mode)=>"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(p.q)+"&travelmode="+(mode||"walking");
@@ -114,11 +116,15 @@ const steps = [
  {t:"10:00", m:600, h:"Nintendo New York", body:`<p>Deux étages, produits exclusifs Mario, Zelda et Pokémon. À 3 minutes de l'hôtel, sur la 48e entre la 5e et la 6e Avenue.</p><div class="btns">${walk(P.nintendo)}</div>`},
  {t:"11:00", m:660, h:"Rockefeller Center", body:`<p>La place centrale, les Channel Gardens, la statue dorée de Prométhée et la patinoire. Possibilité d'une séance de patinage.</p><div class="btns">${walk(P.rock)}</div>`},
  {t:"12:30", m:750, h:"Déjeuner", body:`<p>Dans le Rockefeller Center ou aux abords de la 5e Avenue.</p><p class="sub">Pas encore choisi : dites-moi ce qui vous tente et je l'ajoute ici.</p><div class="btns">${walk(P.lunch)}</div>`},
- {t:"14:00", m:840, h:"5e Avenue", body:`<p>La cathédrale Saint-Patrick, le LEGO Store, les boutiques et les vitrines de la 5e Avenue.</p><div class="btns">${walk(P.stpat,"Saint-Patrick")}${walk(P.lego,"LEGO Store")}</div>`},
+ {t:"14:00", m:840, h:"5e Avenue", body:`<p>La cathédrale Saint-Patrick (50th St) et le LEGO Store (51st St), puis les vitrines en descendant la 5e Avenue.</p><div class="btns">${walk(P.stpat,"Saint-Patrick")}${walk(P.lego,"LEGO Store")}</div>`},
+ {t:"15:00", m:900, h:"Best Buy · 5e Avenue", body:`<p>En bas de la descente de la 5e Avenue, à l'angle de la 44e. Comptez 40 minutes, puis remontez la 5e jusqu'au Top of the Rock (10 min à pied).</p>
+   <p class="sub">531 5th Ave, angle 44th St</p><div class="btns">${walk(P.bb)}</div>`},
  {t:"16:00", m:960, h:"Top of the Rock", body:`<p>Vue panoramique sur Manhattan au coucher du soleil, vers 16h40. Possibilité d'essayer The Beam ou Skylift. <b>À réserver en priorité.</b></p>
    <p class="sub">Entrée sur la 50e Rue, entre la 5e et la 6e Avenue</p>
    <div class="btns">${walk(P.totr)}<a class="btn solid" target="_blank" rel="noopener" href="https://www.rockefellercenter.com/buy-tickets/">Billetterie officielle</a></div>`},
- {t:"18:00", m:1080, move:true, h:"Soirée", body:`<p>Rester dans Midtown pour un verre, ou rentrer tranquillement : l'hôtel est à 6 minutes à pied.</p><div class="btns">${walk(P.hotel,"Retour à l'hôtel")}</div>`},
+ {t:"18:00", m:1080, h:"Grand Slam · Times Square", body:`<p>Le grand magasin de souvenirs de Times Square, ouvert jusqu'à minuit. En fin de journée, vous ne portez pas les sacs toute la journée et vous profitez de Times Square illuminé. 8 minutes à pied depuis le Top of the Rock.</p>
+   <p class="sub">1557 Broadway, entre la 46e et la 47e</p><div class="btns">${walk(P.gs)}</div>`},
+ {t:"19:00", m:1140, move:true, h:"Soirée", body:`<p>Rester dans Midtown pour dîner ou boire un verre, ou rentrer : l'hôtel est à 4 minutes à pied de Grand Slam.</p><div class="btns">${walk(P.hotel,"Retour à l'hôtel")}</div>`},
 ];
 let n=0;
 document.getElementById("steps").innerHTML = steps.map(s=>`<li class="step${s.move?' move':''}" data-m="${s.m}">
@@ -131,7 +137,7 @@ try{
   if(`${p.year}-${p.month}-${p.day}`==="2026-11-09"){
     const mins=(+p.hour)*60+(+p.minute); let cur=null;
     document.querySelectorAll(".step").forEach(li=>{ if(mins>=+li.dataset.m-15) cur=li; });
-    if(cur && mins<1170) cur.classList.add("now");
+    if(cur && mins<1230) cur.classList.add("now");
   }
 }catch(e){}
 </script>
