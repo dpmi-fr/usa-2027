@@ -72,16 +72,16 @@ footer{font-size:13px;color:var(--muted)}
 <div class="wrap">
   <header>
     <a class="eyebrow back" href="./">← Tous les jours</a><div class="eyebrow">Jour 3 · Mardi 10 novembre</div>
-    <h1>Central Park, Rockefeller Center et Top of the Rock</h1>
+    <h1>Central Park, le zoo, Rockefeller Center et Top of the Rock</h1>
     <p>Central Park du sud au nord le matin, en pleines couleurs d'automne, puis retour vers Rockefeller pour le coucher du soleil en haut du Top of the Rock. Chaque bouton ouvre l'itinéraire dans Google Maps depuis l'endroit où vous êtes.</p>
   </header>
 
   <div class="stats" aria-label="Estimation de marche">
-    <div><b>≈ 8,5 km</b><span>tout à pied</span></div>
-    <div><b>≈ 11 500</b><span>pas</span></div>
-    <div><b>≈ 1 h 50</b><span>de marche</span></div>
+    <div><b>≈ 9 km</b><span>tout à pied</span></div>
+    <div><b>≈ 12 500</b><span>pas</span></div>
+    <div><b>≈ 2 h</b><span>de marche</span></div>
   </div>
-  <p class="stats-note">Avec le métro B de Strawberry Fields à Rockefeller : environ 6 km et 8 000 pas.</p>
+  <p class="stats-note">Avec le métro B de Strawberry Fields à Rockefeller : environ 6,5 km et 9 000 pas.</p>
 
   <ol class="steps" id="steps"></ol>
 
@@ -102,6 +102,7 @@ footer{font-size:13px;color:var(--muted)}
 const DAY="2026-11-10", END=1170;
 const P = {
   pond:     {q:"Gapstow Bridge, Central Park, New York, NY"},
+  zoo:      {q:"Central Park Zoo, E 64th St & 5th Ave, New York, NY"},
   wollman:  {q:"Wollman Rink, Central Park, New York, NY"},
   mall:     {q:"The Mall, Literary Walk, Central Park, New York, NY"},
   bethesda: {q:"Bethesda Fountain, Central Park, New York, NY"},
@@ -119,15 +120,18 @@ const metro = (p,label)=>`<a class="btn solid" target="_blank" rel="noopener" hr
 const steps = [
  {t:"09:30", m:570, move:true, h:"Hôtel → Central Park", body:`<div class="opts"><div class="opt"><div class="lbl">À pied : environ 1,4 km, 18 min en remontant la 6e Avenue jusqu'à l'entrée de la 59e Rue.</div><div class="btns">${walk(P.pond)}</div></div></div>`},
  {t:"09:45", m:585, h:"The Pond et Gapstow Bridge", body:`<p>Le petit pont de pierre du coin sud-est, avec la vue sur les tours de Midtown qui se reflètent dans l'étang. La photo classique de Central Park.</p><div class="btns">${walk(P.pond)}</div>`},
- {t:"10:15", m:615, h:"Wollman Rink", body:`<p>La patinoire de Central Park, à regarder depuis les rochers au-dessus, avec les gratte-ciel en fond.</p><div class="btns">${walk(P.wollman)}</div>`},
- {t:"10:30", m:630, h:"The Mall et Literary Walk", body:`<p>La grande allée bordée d'ormes, l'une des plus belles en automne, avec les statues d'écrivains au début.</p><div class="btns">${walk(P.mall)}</div>`},
- {t:"11:00", m:660, h:"Bethesda Terrace et Fountain", body:`<p>Au bout du Mall : la terrasse, l'arcade aux carreaux peints sous l'escalier, et la fontaine de l'ange au bord du lac.</p><div class="btns">${walk(P.bethesda)}</div>`},
- {t:"11:30", m:690, h:"Bow Bridge et The Ramble", body:`<p>Le pont en fonte au-dessus du lac, puis les sentiers boisés du Ramble jusqu'au château. On s'y perd un peu, c'est voulu.</p><div class="btns">${walk(P.bow)}</div>`},
- {t:"12:00", m:720, h:"Belvedere Castle", body:`<p>Le petit château sur son rocher, avec la vue sur Turtle Pond et le Great Lawn. Le point le plus au nord de la journée.</p><div class="btns">${walk(P.belvedere)}</div>`},
- {t:"12:45", m:765, h:"Déjeuner · Central Park Boathouse", body:`<p>Le restaurant au bord du lac, là où on loue les barques. 10 minutes à pied en redescendant du château.</p><p class="sub">East 72nd St &amp; Park Drive North · réservation conseillée</p><div class="btns">${walk(P.boathouse)}</div>`},
- {t:"14:00", m:840, h:"Strawberry Fields", body:`<p>Le mémorial de John Lennon et la mosaïque « Imagine », côté ouest. En face, de l'autre côté de Central Park West, le Dakota Building où il vivait.</p><div class="btns">${walk(P.straw)}</div>`},
- {t:"14:30", m:870, move:true, h:"Central Park → Rockefeller Center", body:`<div class="opts">
-   <div class="opt"><div class="lbl"><b>À pied</b> : environ 2,3 km, 30 min, en descendant le parc par l'ouest jusqu'à Columbus Circle, puis la 7e Avenue.</div><div class="btns">${walk(P.rock)}</div></div>
+ {t:"10:00", m:600, h:"Central Park Zoo", body:`<p>Le petit zoo du parc, à 5 minutes de l'étang : les otaries au centre, les manchots et les macareux, les pandas roux et le léopard des neiges. Comptez une heure, sans tout voir.</p>
+   <p class="sub">Entrée 64th St &amp; 5th Ave · 10h–16h30 · 22,95 $ par adulte, billets en ligne ou sur place</p>
+   <div class="btns">${walk(P.zoo)}<a class="btn solid" target="_blank" rel="noopener" href="https://centralparkzoo.com/tickets">Billets</a></div>`},
+ {t:"11:05", m:665, h:"Wollman Rink", body:`<p>La patinoire de Central Park, à regarder depuis les rochers au-dessus, avec les gratte-ciel en fond.</p><div class="btns">${walk(P.wollman)}</div>`},
+ {t:"11:15", m:675, h:"The Mall et Literary Walk", body:`<p>La grande allée bordée d'ormes, l'une des plus belles en automne, avec les statues d'écrivains au début.</p><div class="btns">${walk(P.mall)}</div>`},
+ {t:"11:40", m:700, h:"Bethesda Terrace et Fountain", body:`<p>Au bout du Mall : la terrasse, l'arcade aux carreaux peints sous l'escalier, et la fontaine de l'ange au bord du lac.</p><div class="btns">${walk(P.bethesda)}</div>`},
+ {t:"12:00", m:720, h:"Bow Bridge et The Ramble", body:`<p>Le pont en fonte au-dessus du lac, puis les sentiers boisés du Ramble jusqu'au château.</p><div class="btns">${walk(P.bow)}</div>`},
+ {t:"12:30", m:750, h:"Belvedere Castle", body:`<p>Le petit château sur son rocher, avec la vue sur Turtle Pond et le Great Lawn. Le point le plus au nord de la journée.</p><div class="btns">${walk(P.belvedere)}</div>`},
+ {t:"13:00", m:780, h:"Déjeuner · Central Park Boathouse", body:`<p>Le restaurant au bord du lac, là où on loue les barques. 10 minutes à pied en redescendant du château.</p><p class="sub">East 72nd St &amp; Park Drive North · réservation conseillée</p><div class="btns">${walk(P.boathouse)}</div>`},
+ {t:"14:15", m:855, h:"Strawberry Fields", body:`<p>Le mémorial de John Lennon et la mosaïque « Imagine », côté ouest. En face, de l'autre côté de Central Park West, le Dakota Building où il vivait.</p><div class="btns">${walk(P.straw)}</div>`},
+ {t:"14:40", m:880, move:true, h:"Central Park → Rockefeller Center", body:`<div class="opts">
+   <div class="opt"><div class="lbl"><b>Métro conseillé aujourd’hui</b> pour garder de la marge avant le Top of the Rock (voir ci-dessous). Sinon à pied : environ 2,3 km, 30 min, en descendant le parc par l'ouest jusqu'à Columbus Circle, puis la 7e Avenue.</div><div class="btns">${walk(P.rock)}</div></div>
    <div class="opt"><div class="lbl">Métro <span class="bullet bB">B</span> à <b>72 St</b> (Central Park West, à 1 min de Strawberry Fields), direction Downtown. Descendre à <b>47-50 Sts – Rockefeller Ctr</b>, 3 arrêts, environ 10 min.</div><div class="btns">${metro(P.rock)}</div></div></div>`},
  {t:"15:00", m:900, h:"Rockefeller Center", body:`<p>La place centrale, les Channel Gardens, la statue dorée de Prométhée et la patinoire. Possibilité d'une séance de patinage.</p><div class="btns">${walk(P.rock)}</div>`},
  {t:"16:00", m:960, h:"Top of the Rock", body:`<p>Vue panoramique sur Manhattan et sur tout Central Park, que vous aurez traversé le matin. Coucher du soleil vers 16h40. Possibilité d'essayer The Beam ou Skylift. <b>À réserver en priorité.</b></p>
