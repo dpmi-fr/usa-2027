@@ -56,7 +56,7 @@ a.btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-w
 a.btn.solid{background:var(--accent);color:var(--bg)}
 a.btn:focus-visible{outline:3px solid var(--now);outline-offset:2px}
 .bullet{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;color:#fff;font:800 13px var(--display);vertical-align:-5px;margin:0 2px}
-.b1{background:var(--l1)} .bE{background:var(--lE)}
+.b1{background:var(--l1)} .bE{background:var(--lE)} .bN{background:#fccc0a;color:#111}
 .tips{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:14px}
 .tips b{display:block;margin-bottom:4px}
 .tips ul{margin:0;padding-left:18px}
@@ -72,25 +72,25 @@ footer{font-size:13px;color:var(--muted)}
 <div class="wrap">
   <header>
     <a class="eyebrow back" href="./">← Tous les jours</a><div class="eyebrow">Jour 2 · Lundi 9 novembre</div>
-    <h1>Nintendo, Rockefeller Center, 5e Avenue, Top of the Rock et Times Square</h1>
-    <p>Journée sans métro : tout est à moins de 10 minutes à pied de l'hôtel. Chaque bouton ouvre l'itinéraire dans Google Maps depuis l'endroit où vous êtes.</p>
+    <h1>Journée shopping : 5e Avenue, Century 21 et Times Square</h1>
+    <p>Journée tranquille pour récupérer d'hier : Midtown à pied le matin, un aller-retour en métro pour Century 21. Chaque bouton ouvre l'itinéraire dans Google Maps depuis l'endroit où vous êtes.</p>
   </header>
 
   <div class="stats" aria-label="Estimation de marche">
-    <div><b>≈ 6 km</b><span>tout à pied</span></div>
-    <div><b>≈ 8 500</b><span>pas</span></div>
-    <div><b>≈ 1 h 25</b><span>de marche</span></div>
+    <div><b>≈ 17 km</b><span>tout à pied</span></div>
+    <div><b>≈ 23 000</b><span>pas</span></div>
+    <div><b>≈ 3 h 45</b><span>de marche</span></div>
   </div>
-  <p class="stats-note">Hors piétinement dans les boutiques, qui ajoute facilement 2 000 à 3 000 pas.</p>
+  <p class="stats-note">Avec le métro aller-retour vers Century 21, comme prévu ici : environ 4,5 km et 6 000 pas, plus le piétinement dans les magasins.</p>
 
   <ol class="steps" id="steps"></ol>
 
   <div class="tips">
     <b>Pratique</b>
     <ul>
-      <li>Top of the Rock : les créneaux autour du coucher du soleil (vers 16h40) partent vite, réservez dès ce soir sur le site officiel.</li>
-      <li>La patinoire du Rockefeller Center fonctionne par créneaux horaires, réservables en ligne.</li>
-      <li>Pour un déjeuner rapide et au chaud, le niveau souterrain du Rockefeller Center (Concourse) regroupe plusieurs comptoirs.</li>
+      <li>Century 21 est ouvert de 9h à 21h du lundi au samedi. Les meilleures affaires sont aux étages, et il y a des cabines d'essayage.</li>
+      <li>Au retour, déposez les sacs à l'hôtel avant Grand Slam : la station 49 St est à 2 minutes.</li>
+      <li>Rockefeller Center et Top of the Rock sont passés à demain, mardi.</li>
     </ul>
   </div>
 
@@ -98,34 +98,37 @@ footer{font-size:13px;color:var(--muted)}
 </div>
 
 <script>
+const DAY="2026-11-09", END=1260;
 const P = {
   nintendo:{q:"Nintendo New York, 10 Rockefeller Plaza, New York, NY"},
   rock:    {q:"Rockefeller Center Ice Rink, New York, NY"},
-  lunch:   {q:"Rockefeller Center, New York, NY"},
   stpat:   {q:"St. Patrick's Cathedral, 5th Ave, New York, NY"},
   lego:    {q:"LEGO Store Fifth Avenue, 636 5th Ave, New York, NY"},
-  totr:    {q:"Top of the Rock, 30 Rockefeller Plaza, New York, NY"},
   bb:      {q:"Best Buy, 531 5th Ave, New York, NY 10017"},
+  bryant:  {q:"Bryant Park, New York, NY"},
+  c21:     {q:"Century 21, 22 Cortlandt St, New York, NY 10007"},
+  memorial:{q:"9/11 Memorial, 180 Greenwich St, New York, NY"},
   gs:      {q:"Grand Slam New York, 1557 Broadway, New York, NY 10036"},
+  totr:    {q:"Top of the Rock, 30 Rockefeller Plaza, New York, NY"},
   hotel:   {q:"150 W 48th St, New York, NY 10036"},
 };
-const G = (p,mode)=>"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(p.q)+"&travelmode="+(mode||"walking");
-const walk = (p,label)=>`<a class="btn" target="_blank" rel="noopener" href="${G(p)}">🚶 ${label||"Y aller à pied"}</a>`;
-
 const steps = [
  {t:"10:00", m:600, h:"Nintendo New York", body:`<p>Deux étages, produits exclusifs Mario, Zelda et Pokémon. À 3 minutes de l'hôtel, sur la 48e entre la 5e et la 6e Avenue.</p><div class="btns">${walk(P.nintendo)}</div>`},
- {t:"11:00", m:660, h:"Rockefeller Center", body:`<p>La place centrale, les Channel Gardens, la statue dorée de Prométhée et la patinoire. Possibilité d'une séance de patinage.</p><div class="btns">${walk(P.rock)}</div>`},
- {t:"12:30", m:750, h:"Déjeuner", body:`<p>Dans le Rockefeller Center ou aux abords de la 5e Avenue.</p><p class="sub">Pas encore choisi : dites-moi ce qui vous tente et je l'ajoute ici.</p><div class="btns">${walk(P.lunch)}</div>`},
- {t:"14:00", m:840, h:"5e Avenue", body:`<p>La cathédrale Saint-Patrick (50th St) et le LEGO Store (51st St), puis les vitrines en descendant la 5e Avenue.</p><div class="btns">${walk(P.stpat,"Saint-Patrick")}${walk(P.lego,"LEGO Store")}</div>`},
- {t:"15:00", m:900, h:"Best Buy · 5e Avenue", body:`<p>En bas de la descente de la 5e Avenue, à l'angle de la 44e. Comptez 40 minutes, puis remontez la 5e jusqu'au Top of the Rock (10 min à pied).</p>
-   <p class="sub">531 5th Ave, angle 44th St</p><div class="btns">${walk(P.bb)}</div>`},
- {t:"16:00", m:960, h:"Top of the Rock", body:`<p>Vue panoramique sur Manhattan au coucher du soleil, vers 16h40. Possibilité d'essayer The Beam ou Skylift. <b>À réserver en priorité.</b></p>
-   <p class="sub">Entrée sur la 50e Rue, entre la 5e et la 6e Avenue</p>
-   <div class="btns">${walk(P.totr)}<a class="btn solid" target="_blank" rel="noopener" href="https://www.rockefellercenter.com/buy-tickets/">Billetterie officielle</a></div>`},
- {t:"18:00", m:1080, h:"Grand Slam · Times Square", body:`<p>Le grand magasin de souvenirs de Times Square, ouvert jusqu'à minuit. En fin de journée, vous ne portez pas les sacs toute la journée et vous profitez de Times Square illuminé. 8 minutes à pied depuis le Top of the Rock.</p>
-   <p class="sub">1557 Broadway, entre la 46e et la 47e</p><div class="btns">${walk(P.gs)}</div>`},
- {t:"19:00", m:1140, move:true, h:"Soirée", body:`<p>Rester dans Midtown pour dîner ou boire un verre, ou rentrer : l'hôtel est à 4 minutes à pied de Grand Slam.</p><div class="btns">${walk(P.hotel,"Retour à l'hôtel")}</div>`},
+ {t:"10:45", m:645, h:"5e Avenue", body:`<p>La cathédrale Saint-Patrick (50th St) et le LEGO Store (51st St), puis les vitrines en descendant la 5e Avenue.</p><div class="btns">${walk(P.stpat,"Saint-Patrick")}${walk(P.lego,"LEGO Store")}</div>`},
+ {t:"11:45", m:705, h:"Best Buy · 5e Avenue", body:`<p>En bas de la descente, à l'angle de la 44e.</p><p class="sub">531 5th Ave, angle 44th St</p><div class="btns">${walk(P.bb)}</div>`},
+ {t:"12:45", m:765, h:"Déjeuner", body:`<p>Dans le coin de Bryant Park, à 2 minutes du Best Buy, avant de prendre le métro.</p><p class="sub">Pas encore choisi : dites-moi ce qui vous tente et je l'ajoute ici.</p><div class="btns">${walk(P.bryant,"Bryant Park")}</div>`},
+ {t:"14:00", m:840, move:true, h:"Métro vers Century 21", body:`<div class="opts"><div class="opt"><div class="lbl">Ligne <span class="bullet bN">R</span> ou <span class="bullet bN">W</span> à <b>Times Sq – 42 St</b> (sur Broadway, 6 min à pied de Bryant Park), direction Downtown. Descendre à <b>Cortlandt St</b>, environ 15 min. Vous sortez en face de Century 21.</div><div class="btns">${metro(P.c21)}</div></div>
+   <div class="opt"><div class="lbl">À pied : environ 6,5 km, 1h20. Pas aujourd'hui, c'est la journée repos.</div><div class="btns">${walk(P.c21)}</div></div></div>`},
+ {t:"14:30", m:870, h:"Century 21", body:`<p>Le grand magasin de déstockage de marques, pour les vêtements, chaussures et accessoires. Comptez 2 heures.</p><p class="sub">22 Cortlandt St, Financial District · 9h–21h</p><div class="btns">${walk(P.c21)}</div>`},
+ {t:"16:30", m:990, h:"Bonus : 9/11 Memorial et Oculus", body:`<p>Juste à côté de Century 21 : les deux bassins du mémorial, en plein air et gratuits, et le hall blanc de l'Oculus. Joli à la tombée du jour, vers 16h40.</p><div class="btns">${walk(P.memorial)}</div>`},
+ {t:"17:15", m:1035, move:true, h:"Retour vers l'hôtel", body:`<div class="opts"><div class="opt"><div class="lbl">Ligne <span class="bullet bN">R</span> ou <span class="bullet bN">W</span> à <b>Cortlandt St</b>, direction Uptown. Descendre à <b>49 St</b>, sur la 7e Avenue, à 2 minutes de l'hôtel. Environ 20 min. Déposez les sacs.</div><div class="btns">${metro(P.hotel,"Retour en métro")}</div></div></div>`},
+ {t:"18:30", m:1110, h:"Grand Slam · Times Square", body:`<p>Le grand magasin de souvenirs de Times Square, ouvert jusqu'à minuit, avec Times Square illuminé. À 4 minutes de l'hôtel.</p><p class="sub">1557 Broadway, entre la 46e et la 47e</p><div class="btns">${walk(P.gs)}</div>`},
+ {t:"19:30", m:1170, move:true, h:"Soirée", body:`<p>Dîner dans Midtown ou retour à l'hôtel.</p><div class="btns">${walk(P.hotel,"Retour à l'hôtel")}</div>`},
 ];
+
+const G = (p,mode)=>"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(p.q)+"&travelmode="+(mode||"walking");
+const walk = (p,label)=>`<a class="btn" target="_blank" rel="noopener" href="${G(p)}">🚶 ${label||"Y aller à pied"}</a>`;
+const metro = (p,label)=>`<a class="btn solid" target="_blank" rel="noopener" href="${G(p,'transit')}">🚇 ${label||"Y aller en métro"}</a>`;
 let n=0;
 document.getElementById("steps").innerHTML = steps.map(s=>`<li class="step${s.move?' move':''}" data-m="${s.m}">
   <div class="dot">${s.move?"↓":++n}</div>
@@ -134,10 +137,10 @@ document.getElementById("steps").innerHTML = steps.map(s=>`<li class="step${s.mo
 try{
   const f=new Intl.DateTimeFormat("en-CA",{timeZone:"America/New_York",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"});
   const p=Object.fromEntries(f.formatToParts(new Date()).map(x=>[x.type,x.value]));
-  if(`${p.year}-${p.month}-${p.day}`==="2026-11-09"){
+  if(`${p.year}-${p.month}-${p.day}`===DAY){
     const mins=(+p.hour)*60+(+p.minute); let cur=null;
     document.querySelectorAll(".step").forEach(li=>{ if(mins>=+li.dataset.m-15) cur=li; });
-    if(cur && mins<1230) cur.classList.add("now");
+    if(cur && mins<END) cur.classList.add("now");
   }
 }catch(e){}
 </script>
