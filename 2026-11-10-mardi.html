@@ -111,6 +111,9 @@ const P = {
   totr:    {q:"Top of the Rock, 30 Rockefeller Plaza, New York, NY"},
   hotel:   {q:"150 W 48th St, New York, NY 10036"},
 };
+const G = (p,mode)=>"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(p.q)+"&travelmode="+(mode||"walking");
+const walk = (p,label)=>`<a class="btn" target="_blank" rel="noopener" href="${G(p)}">🚶 ${label||"Y aller à pied"}</a>`;
+const metro = (p,label)=>`<a class="btn solid" target="_blank" rel="noopener" href="${G(p,'transit')}">🚇 ${label||"Y aller en métro"}</a>`;
 const steps = [
  {t:"14:30", m:870, h:"Rockefeller Center", body:`<p>La place centrale, les Channel Gardens, la statue dorée de Prométhée et la patinoire. Possibilité d'une séance de patinage.</p><div class="btns">${walk(P.rock)}</div>`},
  {t:"16:00", m:960, h:"Top of the Rock", body:`<p>Vue panoramique sur Manhattan au coucher du soleil, vers 16h40. Possibilité d'essayer The Beam ou Skylift. <b>À réserver en priorité.</b></p>
@@ -119,9 +122,6 @@ const steps = [
  {t:"18:00", m:1080, move:true, h:"Soirée", body:`<p>L'hôtel est à 6 minutes à pied.</p><div class="btns">${walk(P.hotel,"Retour à l'hôtel")}</div>`},
 ];
 
-const G = (p,mode)=>"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(p.q)+"&travelmode="+(mode||"walking");
-const walk = (p,label)=>`<a class="btn" target="_blank" rel="noopener" href="${G(p)}">🚶 ${label||"Y aller à pied"}</a>`;
-const metro = (p,label)=>`<a class="btn solid" target="_blank" rel="noopener" href="${G(p,'transit')}">🚇 ${label||"Y aller en métro"}</a>`;
 let n=0;
 document.getElementById("steps").innerHTML = steps.map(s=>`<li class="step${s.move?' move':''}" data-m="${s.m}">
   <div class="dot">${s.move?"↓":++n}</div>

@@ -55,6 +55,8 @@ footer{font-size:13px;color:var(--muted)}
   <footer>Ajoutez cette page à l'écran d'accueil pour l'ouvrir en un tap.</footer>
 </div>
 <script>
+// V = version, bumped on each update so phones skip their cache
+const V = "4";
 // Fill "page" when a day's programme exists
 const days = [
   {d:"2026-11-08", label:"Dimanche 8", title:"West Village, Boucherie, Greenwich Village, Jazz Vespers et Best Buy", page:"2026-11-08-dimanche.html", km:"≈ 15 km · 20 000 pas"},
@@ -74,7 +76,7 @@ document.getElementById("days").innerHTML = days.map((x,i)=>{
   const cls=[x.page?"ready":"soon", x.d===today?"today":""].join(" ");
   const inner=`<div class="date">${x.label} nov.<span class="tag">AUJOURD'HUI</span></div>
     <div class="title">${x.title || "À venir"}</div>${x.km?`<div class="km">🚶 ${x.km}</div>`:""}`;
-  return `<li class="${cls}"><div class="dot">${i+1}</div>${x.page?`<a class="day" href="${x.page}">${inner}</a>`:`<div class="day">${inner}</div>`}</li>`;
+  return `<li class="${cls}"><div class="dot">${i+1}</div>${x.page?`<a class="day" href="${x.page}?v=${V}">${inner}</a>`:`<div class="day">${inner}</div>`}</li>`;
 }).join("");
 </script>
 </body>
