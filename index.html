@@ -56,7 +56,7 @@ footer{font-size:13px;color:var(--muted)}
 </div>
 <script>
 // V = version, bumped on each update so phones skip their cache
-const V = "6";
+let V = "7";
 // Fill "page" when a day's programme exists
 const days = [
   {d:"2026-11-08", label:"Dimanche 8", title:"West Village, Boucherie, Greenwich Village, Jazz Vespers et Best Buy", page:"2026-11-08-dimanche.html", km:"≈ 15 km · 20 000 pas"},
@@ -78,6 +78,9 @@ document.getElementById("days").innerHTML = days.map((x,i)=>{
     <div class="title">${x.title || "À venir"}</div>${x.km?`<div class="km">🚶 ${x.km}</div>`:""}`;
   return `<li class="${cls}"><div class="dot">${i+1}</div>${x.page?`<a class="day" href="${x.page}?v=${V}">${inner}</a>`:`<div class="day">${inner}</div>`}</li>`;
 }).join("");
+try{fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.json()).then(j=>{
+  if(j&&j.v){document.querySelectorAll("a.day").forEach(a=>{a.href=a.getAttribute("href").split("?")[0]+"?v="+j.v;});}
+}).catch(()=>{});}catch(e){}
 </script>
 </body>
 </html>
