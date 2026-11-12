@@ -72,16 +72,16 @@ footer{font-size:13px;color:var(--muted)}
 <div class="wrap">
   <header>
     <a class="eyebrow back" href="./">← Tous les jours</a><div class="eyebrow">Jour 5 · Jeudi 12 novembre</div>
-    <h1>B&amp;H, Chinatown, puis match des Devils à Newark</h1>
-    <p>B&amp;H dès l'ouverture, Chinatown pour le déjeuner, PATH vers Newark l'après-midi, et ce soir New Jersey Devils contre Washington Capitals au Prudential Center, coup d'envoi à 19h.</p>
+    <h1>B&amp;H, Moynihan Food Hall, puis match des Devils à Newark</h1>
+    <p>Version pluie : B&amp;H le matin, déjeuner au sec dans la gare, train NJ Transit direct vers Newark, et ce soir New Jersey Devils contre Washington Capitals au Prudential Center, coup d'envoi à 19h.</p>
   </header>
 
   <div class="stats" aria-label="Estimation de marche">
-    <div><b>≈ 10 km</b><span>à pied dans la journée</span></div>
-    <div><b>≈ 13 500</b><span>pas</span></div>
-    <div><b>≈ 2 h 10</b><span>de marche</span></div>
+    <div><b>≈ 8,5 km</b><span>à pied dans la journée</span></div>
+    <div><b>≈ 11 500</b><span>pas</span></div>
+    <div><b>≈ 1 h 50</b><span>de marche</span></div>
   </div>
-  <p class="stats-note">Avec le métro pour Chinatown et le train pour Newark. À pied jusqu'à Chinatown : environ 14,5 km et 19 500 pas en direct, ou 15,5 km et 21 000 pas par la High Line.</p>
+  <p class="stats-note">Avec le train pour Newark. L'essentiel de la marche est à Newark, à vous de doser selon la pluie.</p>
 
   <ol class="steps" id="steps"></ol>
 
@@ -89,8 +89,8 @@ footer{font-size:13px;color:var(--muted)}
     <b>Pratique</b>
     <ul>
       <li>B&amp;H : ouvert de 10h à 19h le jeudi. Les articles choisis partent sur un tapis roulant au plafond, vous payez et récupérez tout à la sortie.</li>
-      <li>PATH : on paie au tourniquet, environ 3 $ le trajet, par carte bancaire sans contact ou avec un ticket au distributeur.</li>
-      <li>Retour : le train NJ Transit Newark Penn → New York Penn est dans l'appli NJ Transit, que vous avez déjà. Achetez le billet pendant le match, il y aura la queue aux distributeurs à la sortie.</li>
+      <li>Pluie : Moynihan, le train et le Prudential Center sont couverts. À Newark, la gare est à 10 min à pied de l'Ironbound et du stade.</li>
+      <li>Retour : le train NJ Transit Newark Penn → New York Penn est dans l'appli NJ Transit, que vous avez déjà. Prenez l'aller-retour dès ce midi dans l'appli, ou achetez le retour pendant le match, il y aura la queue aux distributeurs à la sortie.</li>
       <li>Prudential Center : la taille des sacs acceptés est limitée. Si vous faites de gros achats chez B&amp;H, vérifiez la politique sur le site du stade, ou demandez la livraison à l'hôtel au comptoir de B&amp;H.</li>
     </ul>
   </div>
@@ -113,22 +113,18 @@ const P = {
   ironbound:{q:"Ferry Street, Ironbound, Newark, NJ"},
   pru:      {q:"Prudential Center, 25 Lafayette St, Newark, NJ 07102"},
   nyp:      {q:"New York Penn Station, New York, NY"},
+  moyn:     {q:"Moynihan Food Hall, 421 8th Ave, New York, NY 10001"},
   hotel:    {q:"150 W 48th St, New York, NY 10036"},
 };
 const G = (p,mode)=>"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(p.q)+"&travelmode="+(mode||"walking");
 const walk = (p,label)=>`<a class="btn" target="_blank" rel="noopener" href="${G(p)}">🚶 ${label||"Y aller à pied"}</a>`;
 const metro = (p,label)=>`<a class="btn solid" target="_blank" rel="noopener" href="${G(p,'transit')}">🚇 ${label||"Y aller en métro"}</a>`;
 const steps = [
- {t:"09:40", m:580, move:true, h:"Hôtel → B&H", body:`<div class="opts"><div class="opt"><div class="lbl">À pied : environ 1,6 km, 20 min. Descendez la 8e Avenue jusqu'à la 34e, puis la 9e Avenue. Le magasin est au coin de la 34e et de la 9e.</div><div class="btns">${walk(P.bh)}${metro(P.bh)}</div></div></div>`},
- {t:"10:00", m:600, h:"B&H Photo Video", body:`<p>Le temple new-yorkais de la photo, de la vidéo, de l'audio et de l'informatique, sur deux niveaux. Ouverture à 10h : vous aurez le magasin presque pour vous.</p><p class="sub">420 9th Ave, angle 34th St · 10h–19h</p><div class="btns">${walk(P.bh)}</div>`},
- {t:"12:00", m:720, move:true, h:"B&H → Chinatown", body:`<div class="opts"><div class="opt"><div class="lbl">Métro <span class="bullet bA">A</span>, <span class="bullet bA">C</span> ou <span class="bullet bA">E</span> à <b>34 St – Penn Station</b> (8e Avenue, 4 min à pied de B&amp;H), direction Downtown. Descendre à <b>Canal St</b>, environ 12 min, puis 10 min à pied vers l'est jusqu'à Mott St.</div><div class="btns">${metro(P.mott)}</div></div>
-   <div class="opt"><div class="lbl"><b>À pied, direct</b> : environ 4,5 km, 55 min. Descendre la 8e Avenue par Chelsea, puis Hudson St et le West Village, SoHo, et Canal St jusqu'à Mott St.</div><div class="btns">${walk(P.mott)}</div></div>
-   <div class="opt"><div class="lbl"><b>À pied par la High Line</b> : environ 5,5 km, 1h15. La voie ferrée suspendue transformée en jardin, de Hudson Yards (entrée 30th St &amp; 10th Ave, 5 min de B&amp;H) jusqu'au Meatpacking District, puis West Village et SoHo jusqu'à Chinatown. La plus belle option, mais déjeuner plutôt vers 13h30.</div><div class="btns">${walk(P.hlnorth,"Entrée High Line")}${walk(P.mott,"Puis Chinatown")}</div></div></div>`},
- {t:"12:30", m:750, h:"Chinatown", body:`<p>Mott St, Pell St et la petite Doyers St en coude, les marchés de Canal St, Columbus Park où les anciens jouent aux cartes et au xiangqi. Little Italy (Mulberry St) est juste à côté.</p>
-   <ul class="ideas"><li>Déjeuner dim sum chez <b>Nom Wah Tea Parlor</b>, ouvert depuis 1920, sur Doyers St</li><li>Pour le côté geek : <b>Chinatown Fair</b>, la salle d'arcade historique, 8 Mott St</li></ul>
-   <div class="btns">${walk(P.nomwah,"Nom Wah")}${walk(P.arcade,"Chinatown Fair")}</div>`},
- {t:"14:45", m:885, move:true, h:"Chinatown → Newark (PATH)", body:`<div class="opts"><div class="opt"><div class="lbl">À pied jusqu'à la gare <b>World Trade Center</b> (l'Oculus), environ 1,5 km, 20 min. Prendre le <b>PATH</b> direction <b>Newark</b>, terminus Newark Penn Station, environ 25 min.</div><div class="btns">${walk(P.wtc,"Aller à l'Oculus")}${metro(P.nwk,"Itinéraire jusqu'à Newark")}</div></div></div>`},
- {t:"15:30", m:930, h:"Après-midi libre à Newark", body:`<p>À décider sur place. L'idée la plus simple : l'<b>Ironbound</b>, le quartier portugais et brésilien juste derrière la gare, avec Ferry Street, ses pâtisseries et ses rodizios. Parfait pour dîner avant le match.</p><div class="btns">${walk(P.ironbound,"Ironbound")}</div>`},
+ {t:"10:00", m:600, h:"B&H Photo Video", body:`<p>Le temple new-yorkais de la photo, de la vidéo, de l'audio et de l'informatique. Les articles partent sur un tapis roulant au plafond, vous payez et récupérez tout à la sortie.</p><p class="sub">420 9th Ave, angle 34th St · 10h–19h</p><div class="btns">${walk(P.bh)}</div>`},
+ {t:"12:15", m:735, move:true, h:"B&H → Moynihan Train Hall", body:`<div class="opts"><div class="opt"><div class="lbl">À pied : 5 min. Descendez la 9e Avenue jusqu'à la 33e, puis à gauche jusqu'à l'entrée du hall sur la 8e Avenue. Le food hall est à l'intérieur, au sec.</div><div class="btns">${walk(P.moyn)}</div></div></div>`},
+ {t:"12:30", m:750, h:"Déjeuner · Moynihan Food Hall", body:`<p>Le food hall de la gare : on s'assoit, on scanne le QR code de la table et on commande dans tous les comptoirs à la fois (Jacob's Pickles, ramen, pastrami, bar). Ouvert de 10h à 22h.</p><p class="sub">Moynihan Train Hall, 421 8th Ave</p><div class="btns">${walk(P.moyn)}</div>`},
+ {t:"14:00", m:840, move:true, h:"Train NJ Transit → Newark Penn", body:`<div class="opts"><div class="opt"><div class="lbl">Depuis <b>New York Penn Station</b> (même bâtiment), n'importe quel train NJ Transit qui s'arrête à <b>Newark Penn Station</b> (lignes Northeast Corridor ou North Jersey Coast), environ 20 min. Billet dans l'appli NJ Transit, à activer avant de monter. Le quai s'affiche sur les écrans environ 10 min avant le départ.</div><div class="btns">${metro(P.nwk,"Horaires dans Google Maps")}</div></div></div>`},
+ {t:"14:30", m:870, h:"Après-midi à Newark", body:`<p>À décider sur place selon la pluie. L'<b>Ironbound</b>, le quartier portugais et brésilien juste derrière la gare : Ferry Street, ses cafés et pâtisseries pour s'abriter, et ses rodizios pour dîner avant le match.</p><div class="btns">${walk(P.ironbound,"Ironbound")}</div>`},
  {t:"18:00", m:1080, move:true, h:"Vers le Prudential Center", body:`<div class="opts"><div class="opt"><div class="lbl">À pied : 10 à 15 min depuis Ferry Street ou la gare. Les portes ouvrent environ une heure avant le match.</div><div class="btns">${walk(P.pru)}</div></div></div>`},
  {t:"19:00", m:1140, h:"Match · Devils vs Capitals", body:`<p>New Jersey Devils contre Washington Capitals, au Prudential Center. Coup d'envoi à 19h, fin vers 21h30.</p><p class="sub">25 Lafayette St, Newark</p><div class="btns">${walk(P.pru)}</div>`},
  {t:"21:45", m:1305, move:true, h:"Retour vers l'hôtel", body:`<div class="opts"><div class="opt"><div class="lbl">À pied jusqu'à <b>Newark Penn Station</b> (10 min), puis train <b>NJ Transit</b> jusqu'à <b>New York Penn Station</b>, environ 20 min. Ensuite 20 min à pied jusqu'à l'hôtel, ou métro <span class="bullet b1">1</span> de 34 St à 50 St.</div><div class="btns">${metro(P.hotel,"Itinéraire retour")}</div></div></div>`},
@@ -150,7 +146,7 @@ try{
 </script>
 <script>
 // Auto-refresh: if a newer version is published, reload this page once with ?v=<latest>
-(function(){var PV="10";
+(function(){var PV="11";
   try{fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
     if(j&&j.v&&j.v!==PV&&location.search.indexOf("v="+j.v)<0){location.replace(location.pathname+"?v="+j.v);}
   }).catch(function(){});}catch(e){}
