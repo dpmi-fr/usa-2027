@@ -214,7 +214,7 @@ try{
 
 <script>
 // Auto-refresh: if a newer version is published, reload this page once with ?v=<latest>
-(function(){var PV="11";
+(function(){var PV="12";
   try{fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
     if(j&&j.v&&j.v!==PV&&location.search.indexOf("v="+j.v)<0){location.replace(location.pathname+"?v="+j.v);}
   }).catch(function(){});}catch(e){}
