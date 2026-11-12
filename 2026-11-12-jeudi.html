@@ -81,7 +81,7 @@ footer{font-size:13px;color:var(--muted)}
     <div><b>≈ 13 500</b><span>pas</span></div>
     <div><b>≈ 2 h 10</b><span>de marche</span></div>
   </div>
-  <p class="stats-note">Avec le métro pour Chinatown et le train pour Newark. Tout faire à pied jusqu'à Chinatown ajouterait environ 4,5 km.</p>
+  <p class="stats-note">Avec le métro pour Chinatown et le train pour Newark. À pied jusqu'à Chinatown : environ 14,5 km et 19 500 pas en direct, ou 15,5 km et 21 000 pas par la High Line.</p>
 
   <ol class="steps" id="steps"></ol>
 
@@ -103,6 +103,8 @@ const DAY="2026-11-12", END=1350;
 const P = {
   bh:       {q:"B&H Photo Video, 420 9th Ave, New York, NY 10001"},
   canal:    {q:"Canal St Station (A C E), New York, NY"},
+  hlnorth:  {q:"High Line, 30th St & 10th Ave entrance, New York, NY"},
+  hlsouth:  {q:"High Line, Gansevoort St entrance, New York, NY"},
   mott:     {q:"Mott St & Pell St, Chinatown, New York, NY"},
   nomwah:   {q:"Nom Wah Tea Parlor, 13 Doyers St, New York, NY 10013"},
   arcade:   {q:"Chinatown Fair Family Fun Center, 8 Mott St, New York, NY"},
@@ -119,7 +121,9 @@ const metro = (p,label)=>`<a class="btn solid" target="_blank" rel="noopener" hr
 const steps = [
  {t:"09:40", m:580, move:true, h:"Hôtel → B&H", body:`<div class="opts"><div class="opt"><div class="lbl">À pied : environ 1,6 km, 20 min. Descendez la 8e Avenue jusqu'à la 34e, puis la 9e Avenue. Le magasin est au coin de la 34e et de la 9e.</div><div class="btns">${walk(P.bh)}${metro(P.bh)}</div></div></div>`},
  {t:"10:00", m:600, h:"B&H Photo Video", body:`<p>Le temple new-yorkais de la photo, de la vidéo, de l'audio et de l'informatique, sur deux niveaux. Ouverture à 10h : vous aurez le magasin presque pour vous.</p><p class="sub">420 9th Ave, angle 34th St · 10h–19h</p><div class="btns">${walk(P.bh)}</div>`},
- {t:"12:00", m:720, move:true, h:"B&H → Chinatown", body:`<div class="opts"><div class="opt"><div class="lbl">Métro <span class="bullet bA">A</span>, <span class="bullet bA">C</span> ou <span class="bullet bA">E</span> à <b>34 St – Penn Station</b> (8e Avenue, 4 min à pied de B&amp;H), direction Downtown. Descendre à <b>Canal St</b>, environ 12 min, puis 10 min à pied vers l'est jusqu'à Mott St.</div><div class="btns">${metro(P.mott)}</div></div></div>`},
+ {t:"12:00", m:720, move:true, h:"B&H → Chinatown", body:`<div class="opts"><div class="opt"><div class="lbl">Métro <span class="bullet bA">A</span>, <span class="bullet bA">C</span> ou <span class="bullet bA">E</span> à <b>34 St – Penn Station</b> (8e Avenue, 4 min à pied de B&amp;H), direction Downtown. Descendre à <b>Canal St</b>, environ 12 min, puis 10 min à pied vers l'est jusqu'à Mott St.</div><div class="btns">${metro(P.mott)}</div></div>
+   <div class="opt"><div class="lbl"><b>À pied, direct</b> : environ 4,5 km, 55 min. Descendre la 8e Avenue par Chelsea, puis Hudson St et le West Village, SoHo, et Canal St jusqu'à Mott St.</div><div class="btns">${walk(P.mott)}</div></div>
+   <div class="opt"><div class="lbl"><b>À pied par la High Line</b> : environ 5,5 km, 1h15. La voie ferrée suspendue transformée en jardin, de Hudson Yards (entrée 30th St &amp; 10th Ave, 5 min de B&amp;H) jusqu'au Meatpacking District, puis West Village et SoHo jusqu'à Chinatown. La plus belle option, mais déjeuner plutôt vers 13h30.</div><div class="btns">${walk(P.hlnorth,"Entrée High Line")}${walk(P.mott,"Puis Chinatown")}</div></div></div>`},
  {t:"12:30", m:750, h:"Chinatown", body:`<p>Mott St, Pell St et la petite Doyers St en coude, les marchés de Canal St, Columbus Park où les anciens jouent aux cartes et au xiangqi. Little Italy (Mulberry St) est juste à côté.</p>
    <ul class="ideas"><li>Déjeuner dim sum chez <b>Nom Wah Tea Parlor</b>, ouvert depuis 1920, sur Doyers St</li><li>Pour le côté geek : <b>Chinatown Fair</b>, la salle d'arcade historique, 8 Mott St</li></ul>
    <div class="btns">${walk(P.nomwah,"Nom Wah")}${walk(P.arcade,"Chinatown Fair")}</div>`},
@@ -146,7 +150,7 @@ try{
 </script>
 <script>
 // Auto-refresh: if a newer version is published, reload this page once with ?v=<latest>
-(function(){var PV="9";
+(function(){var PV="10";
   try{fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
     if(j&&j.v&&j.v!==PV&&location.search.indexOf("v="+j.v)<0){location.replace(location.pathname+"?v="+j.v);}
   }).catch(function(){});}catch(e){}
