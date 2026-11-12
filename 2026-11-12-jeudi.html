@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}</style>
+<title>NYC · Jeudi 12 nov.</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one column like a subway strip map — stops on a vertical line, each with "go" buttons */
+:root{
+  --bg:#f5f6f4; --card:#ffffff; --fg:#16181a; --muted:#5d6468; --line:#d9ddda;
+  --accent:#0a6e52; --accent-soft:#e2f0ea; --now:#f2b705;
+  --l1:#ee352e; --lE:#0039a6;
+  --display:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111416; --card:#1a1e21; --fg:#eef1ef; --muted:#9aa3a7; --line:#2c3236;
+  --accent:#4fc39a; --accent-soft:#16312a; --now:#f2b705; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111416; --card:#1a1e21; --fg:#eef1ef; --muted:#9aa3a7; --line:#2c3236;
+  --accent:#4fc39a; --accent-soft:#16312a; --now:#f2b705; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 var(--display);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header h1{font-size:30px;line-height:1.1;font-weight:800;margin:0;text-wrap:balance;letter-spacing:-.01em}
+header p{margin:6px 0 0;color:var(--muted)}
+.eyebrow{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.map{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px}
+.map svg{display:block;width:100%;height:auto}
+.legend{font-size:13px;color:var(--muted);padding:4px 8px 6px}
+.all{display:flex;flex-wrap:wrap;gap:8px}
+ol.steps{list-style:none;margin:0;padding:0;position:relative}
+ol.steps::before{content:"";position:absolute;left:19px;top:8px;bottom:8px;width:4px;border-radius:2px;background:var(--line)}
+.step{position:relative;padding-left:52px;padding-bottom:22px}
+.dot{position:absolute;left:6px;top:2px;width:30px;height:30px;border-radius:50%;background:var(--card);border:4px solid var(--accent);
+  display:grid;place-items:center;font:600 13px var(--mono);color:var(--fg)}
+.step.move .dot{border-style:dashed;border-color:var(--muted);font-size:15px}
+.step.now .dot{border-color:var(--now);box-shadow:0 0 0 5px color-mix(in srgb,var(--now) 30%,transparent)}
+.time{font:600 14px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.now-tag{display:none;margin-left:8px;background:var(--now);color:#1a1400;border-radius:999px;padding:1px 8px;font:600 11px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.step.now .now-tag{display:inline-block}
+.step h2{font-size:20px;margin:2px 0 4px;line-height:1.2}
+.step p{margin:0 0 8px;color:var(--fg)}
+.step .sub{color:var(--muted);font-size:14px}
+.ideas{margin:4px 0 10px;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-size:15px}
+.ideas li::before{content:"→ ";color:var(--accent)}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.opt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.opt .lbl{font-size:14px;margin-bottom:8px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+a.btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:600;font-size:14px;
+  padding:9px 13px;border-radius:999px;border:1.5px solid var(--accent);color:var(--accent);background:transparent;min-height:40px}
+a.btn.solid{background:var(--accent);color:var(--bg)}
+a.btn:focus-visible{outline:3px solid var(--now);outline-offset:2px}
+.bullet{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;color:#fff;font:800 13px var(--display);vertical-align:-5px;margin:0 2px}
+.b1{background:var(--l1)} .bE{background:var(--lE)} .bN{background:#fccc0a;color:#111} .bB{background:#ff6319} .bA{background:#0039a6}
+.tips{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:14px}
+.tips b{display:block;margin-bottom:4px}
+.tips ul{margin:0;padding-left:18px}
+footer{font-size:13px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-width:0}
+.stats b{display:block;font:600 22px var(--mono);font-variant-numeric:tabular-nums;color:var(--accent);line-height:1.2}
+.stats span{font-size:13px;color:var(--muted)}
+.stats-note{font-size:13px;color:var(--muted);margin:-12px 0 0}
+.back{display:inline-block;margin-bottom:8px;text-decoration:none;color:var(--muted)}
+</style>
+
+<div class="wrap">
+  <header>
+    <a class="eyebrow back" href="./">← Tous les jours</a><div class="eyebrow">Jour 5 · Jeudi 12 novembre</div>
+    <h1>B&amp;H, Chinatown, puis match des Devils à Newark</h1>
+    <p>B&amp;H dès l'ouverture, Chinatown pour le déjeuner, PATH vers Newark l'après-midi, et ce soir New Jersey Devils contre Washington Capitals au Prudential Center, coup d'envoi à 19h.</p>
+  </header>
+
+  <div class="stats" aria-label="Estimation de marche">
+    <div><b>≈ 10 km</b><span>à pied dans la journée</span></div>
+    <div><b>≈ 13 500</b><span>pas</span></div>
+    <div><b>≈ 2 h 10</b><span>de marche</span></div>
+  </div>
+  <p class="stats-note">Avec le métro pour Chinatown et le train pour Newark. Tout faire à pied jusqu'à Chinatown ajouterait environ 4,5 km.</p>
+
+  <ol class="steps" id="steps"></ol>
+
+  <div class="tips">
+    <b>Pratique</b>
+    <ul>
+      <li>B&amp;H : ouvert de 10h à 19h le jeudi. Les articles choisis partent sur un tapis roulant au plafond, vous payez et récupérez tout à la sortie.</li>
+      <li>PATH : on paie au tourniquet, environ 3 $ le trajet, par carte bancaire sans contact ou avec un ticket au distributeur.</li>
+      <li>Retour : le train NJ Transit Newark Penn → New York Penn est dans l'appli NJ Transit, que vous avez déjà. Achetez le billet pendant le match, il y aura la queue aux distributeurs à la sortie.</li>
+      <li>Prudential Center : la taille des sacs acceptés est limitée. Si vous faites de gros achats chez B&amp;H, vérifiez la politique sur le site du stade, ou demandez la livraison à l'hôtel au comptoir de B&amp;H.</li>
+    </ul>
+  </div>
+
+  <footer>Ajoutez la page à l'écran d'accueil pour l'ouvrir en un tap.</footer>
+</div>
+
+<script>
+const DAY="2026-11-12", END=1350;
+const P = {
+  bh:       {q:"B&H Photo Video, 420 9th Ave, New York, NY 10001"},
+  canal:    {q:"Canal St Station (A C E), New York, NY"},
+  mott:     {q:"Mott St & Pell St, Chinatown, New York, NY"},
+  nomwah:   {q:"Nom Wah Tea Parlor, 13 Doyers St, New York, NY 10013"},
+  arcade:   {q:"Chinatown Fair Family Fun Center, 8 Mott St, New York, NY"},
+  wtc:      {q:"World Trade Center PATH Station, New York, NY"},
+  nwk:      {q:"Newark Penn Station, Newark, NJ"},
+  ironbound:{q:"Ferry Street, Ironbound, Newark, NJ"},
+  pru:      {q:"Prudential Center, 25 Lafayette St, Newark, NJ 07102"},
+  nyp:      {q:"New York Penn Station, New York, NY"},
+  hotel:    {q:"150 W 48th St, New York, NY 10036"},
+};
+const G = (p,mode)=>"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(p.q)+"&travelmode="+(mode||"walking");
+const walk = (p,label)=>`<a class="btn" target="_blank" rel="noopener" href="${G(p)}">🚶 ${label||"Y aller à pied"}</a>`;
+const metro = (p,label)=>`<a class="btn solid" target="_blank" rel="noopener" href="${G(p,'transit')}">🚇 ${label||"Y aller en métro"}</a>`;
+const steps = [
+ {t:"09:40", m:580, move:true, h:"Hôtel → B&H", body:`<div class="opts"><div class="opt"><div class="lbl">À pied : environ 1,6 km, 20 min. Descendez la 8e Avenue jusqu'à la 34e, puis la 9e Avenue. Le magasin est au coin de la 34e et de la 9e.</div><div class="btns">${walk(P.bh)}${metro(P.bh)}</div></div></div>`},
+ {t:"10:00", m:600, h:"B&H Photo Video", body:`<p>Le temple new-yorkais de la photo, de la vidéo, de l'audio et de l'informatique, sur deux niveaux. Ouverture à 10h : vous aurez le magasin presque pour vous.</p><p class="sub">420 9th Ave, angle 34th St · 10h–19h</p><div class="btns">${walk(P.bh)}</div>`},
+ {t:"12:00", m:720, move:true, h:"B&H → Chinatown", body:`<div class="opts"><div class="opt"><div class="lbl">Métro <span class="bullet bA">A</span>, <span class="bullet bA">C</span> ou <span class="bullet bA">E</span> à <b>34 St – Penn Station</b> (8e Avenue, 4 min à pied de B&amp;H), direction Downtown. Descendre à <b>Canal St</b>, environ 12 min, puis 10 min à pied vers l'est jusqu'à Mott St.</div><div class="btns">${metro(P.mott)}</div></div></div>`},
+ {t:"12:30", m:750, h:"Chinatown", body:`<p>Mott St, Pell St et la petite Doyers St en coude, les marchés de Canal St, Columbus Park où les anciens jouent aux cartes et au xiangqi. Little Italy (Mulberry St) est juste à côté.</p>
+   <ul class="ideas"><li>Déjeuner dim sum chez <b>Nom Wah Tea Parlor</b>, ouvert depuis 1920, sur Doyers St</li><li>Pour le côté geek : <b>Chinatown Fair</b>, la salle d'arcade historique, 8 Mott St</li></ul>
+   <div class="btns">${walk(P.nomwah,"Nom Wah")}${walk(P.arcade,"Chinatown Fair")}</div>`},
+ {t:"14:45", m:885, move:true, h:"Chinatown → Newark (PATH)", body:`<div class="opts"><div class="opt"><div class="lbl">À pied jusqu'à la gare <b>World Trade Center</b> (l'Oculus), environ 1,5 km, 20 min. Prendre le <b>PATH</b> direction <b>Newark</b>, terminus Newark Penn Station, environ 25 min.</div><div class="btns">${walk(P.wtc,"Aller à l'Oculus")}${metro(P.nwk,"Itinéraire jusqu'à Newark")}</div></div></div>`},
+ {t:"15:30", m:930, h:"Après-midi libre à Newark", body:`<p>À décider sur place. L'idée la plus simple : l'<b>Ironbound</b>, le quartier portugais et brésilien juste derrière la gare, avec Ferry Street, ses pâtisseries et ses rodizios. Parfait pour dîner avant le match.</p><div class="btns">${walk(P.ironbound,"Ironbound")}</div>`},
+ {t:"18:00", m:1080, move:true, h:"Vers le Prudential Center", body:`<div class="opts"><div class="opt"><div class="lbl">À pied : 10 à 15 min depuis Ferry Street ou la gare. Les portes ouvrent environ une heure avant le match.</div><div class="btns">${walk(P.pru)}</div></div></div>`},
+ {t:"19:00", m:1140, h:"Match · Devils vs Capitals", body:`<p>New Jersey Devils contre Washington Capitals, au Prudential Center. Coup d'envoi à 19h, fin vers 21h30.</p><p class="sub">25 Lafayette St, Newark</p><div class="btns">${walk(P.pru)}</div>`},
+ {t:"21:45", m:1305, move:true, h:"Retour vers l'hôtel", body:`<div class="opts"><div class="opt"><div class="lbl">À pied jusqu'à <b>Newark Penn Station</b> (10 min), puis train <b>NJ Transit</b> jusqu'à <b>New York Penn Station</b>, environ 20 min. Ensuite 20 min à pied jusqu'à l'hôtel, ou métro <span class="bullet b1">1</span> de 34 St à 50 St.</div><div class="btns">${metro(P.hotel,"Itinéraire retour")}</div></div></div>`},
+];
+let n=0;
+document.getElementById("steps").innerHTML = steps.map(s=>`<li class="step${s.move?' move':''}" data-m="${s.m}">
+  <div class="dot">${s.move?"↓":++n}</div>
+  <div class="time">${s.t.replace(':','h')}<span class="now-tag">Maintenant</span></div>
+  <h2>${s.h}</h2>${s.body}</li>`).join("");
+try{
+  const f=new Intl.DateTimeFormat("en-CA",{timeZone:"America/New_York",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"});
+  const p=Object.fromEntries(f.formatToParts(new Date()).map(x=>[x.type,x.value]));
+  if(`${p.year}-${p.month}-${p.day}`===DAY){
+    const mins=(+p.hour)*60+(+p.minute); let cur=null;
+    document.querySelectorAll(".step").forEach(li=>{ if(mins>=+li.dataset.m-15) cur=li; });
+    if(cur && mins<END) cur.classList.add("now");
+  }
+}catch(e){}
+</script>
+<script>
+// Auto-refresh: if a newer version is published, reload this page once with ?v=<latest>
+(function(){var PV="9";
+  try{fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
+    if(j&&j.v&&j.v!==PV&&location.search.indexOf("v="+j.v)<0){location.replace(location.pathname+"?v="+j.v);}
+  }).catch(function(){});}catch(e){}
+})();
+</script>
+</html>
