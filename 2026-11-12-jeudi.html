@@ -56,7 +56,7 @@ a.btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-w
 a.btn.solid{background:var(--accent);color:var(--bg)}
 a.btn:focus-visible{outline:3px solid var(--now);outline-offset:2px}
 .bullet{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;color:#fff;font:800 13px var(--display);vertical-align:-5px;margin:0 2px}
-.b1{background:var(--l1)} .bE{background:var(--lE)} .bN{background:#fccc0a;color:#111} .bB{background:#ff6319} .bA{background:#0039a6}
+.b1{background:var(--l1)} .bE{background:var(--lE)} .bN{background:#fccc0a;color:#111} .bB{background:#ff6319} .bA{background:#0039a6} .bP{background:#d93a30;width:auto;padding:0 6px;border-radius:4px;font-size:11px}
 .tips{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:14px}
 .tips b{display:block;margin-bottom:4px}
 .tips ul{margin:0;padding-left:18px}
@@ -72,8 +72,8 @@ footer{font-size:13px;color:var(--muted)}
 <div class="wrap">
   <header>
     <a class="eyebrow back" href="./">← Tous les jours</a><div class="eyebrow">Jour 5 · Jeudi 12 novembre</div>
-    <h1>B&amp;H, Moynihan, Hometown Arcade, puis match des Devils</h1>
-    <p>Version pluie : B&amp;H le matin, déjeuner au sec dans la gare, train vers Newark puis arcade à Bloomfield l'après-midi, et ce soir New Jersey Devils contre Washington Capitals au Prudential Center, coup d'envoi à 19h.</p>
+    <h1>B&amp;H, Moynihan, musée de Newark, puis match des Devils</h1>
+    <p>Version pluie : B&amp;H le matin, déjeuner au sec à Moynihan, PATH vers Newark, musée et planétarium l'après-midi, et ce soir New Jersey Devils contre Washington Capitals au Prudential Center, coup d'envoi à 19h.</p>
   </header>
 
   <div class="stats" aria-label="Estimation de marche">
@@ -81,7 +81,7 @@ footer{font-size:13px;color:var(--muted)}
     <div><b>≈ 9 500</b><span>pas</span></div>
     <div><b>≈ 1 h 30</b><span>de marche</span></div>
   </div>
-  <p class="stats-note">Avec le train pour Newark et deux Uber pour l'aller-retour à Bloomfield. Journée presque entièrement au sec.</p>
+  <p class="stats-note">Avec le PATH et le tramway de Newark. Journée presque entièrement au sec.</p>
 
   <ol class="steps" id="steps"></ol>
 
@@ -90,7 +90,7 @@ footer{font-size:13px;color:var(--muted)}
     <ul>
       <li>B&amp;H : ouvert de 10h à 19h le jeudi. Les articles choisis partent sur un tapis roulant au plafond, vous payez et récupérez tout à la sortie.</li>
       <li>Pluie : Moynihan, le train et le Prudential Center sont couverts. À Newark, la gare est à 10 min à pied de l'Ironbound et du stade.</li>
-      <li>Retour : le train NJ Transit Newark Penn → New York Penn est dans l'appli NJ Transit, que vous avez déjà. Prenez l'aller-retour dès ce midi dans l'appli, ou achetez le retour pendant le match, il y aura la queue aux distributeurs à la sortie.</li>
+      <li>PATH : environ 3 $ le trajet, au tourniquet. Les trains NJ Transit et Amtrak de Penn Station vont aussi à Newark, mais Amtrak est très cher : ne pas s'y tromper.</li>
       <li>Prudential Center : la taille des sacs acceptés est limitée. Si vous faites de gros achats chez B&amp;H, vérifiez la politique sur le site du stade, ou demandez la livraison à l'hôtel au comptoir de B&amp;H.</li>
     </ul>
   </div>
@@ -114,7 +114,12 @@ const P = {
   pru:      {q:"Prudential Center, 25 Lafayette St, Newark, NJ 07102"},
   nyp:      {q:"New York Penn Station, New York, NY"},
   moyn:     {q:"Moynihan Food Hall, 421 8th Ave, New York, NY 10001"},
-  bloom:    {q:"Bloomfield Station, Bloomfield, NJ"},
+  path33:   {q:"33rd Street PATH Station, 6th Ave & W 33rd St, New York, NY"},
+  jsq:      {q:"Journal Square PATH Station, Jersey City, NJ"},
+  museum:   {q:"The Newark Museum of Art, 49 Washington St, Newark, NJ 07102"},
+  cathedral:{q:"Cathedral Basilica of the Sacred Heart, 89 Ridge St, Newark, NJ 07104"},
+  teixeira: {q:"Teixeira's Bakery, 186 Ferry St, Newark, NJ 07105"},
+  brasilia: {q:"Brasilia Grill, 99 Monroe St, Newark, NJ 07105"},
   hometown: {q:"Hometown Arcade, 85 Washington St, Bloomfield, NJ 07003"},
   hotel:    {q:"150 W 48th St, New York, NY 10036"},
 };
@@ -125,15 +130,19 @@ const steps = [
  {t:"10:00", m:600, h:"B&H Photo Video", body:`<p>Le temple new-yorkais de la photo, de la vidéo, de l'audio et de l'informatique. Les articles partent sur un tapis roulant au plafond, vous payez et récupérez tout à la sortie.</p><p class="sub">420 9th Ave, angle 34th St · 10h–19h</p><div class="btns">${walk(P.bh)}</div>`},
  {t:"12:15", m:735, move:true, h:"B&H → Moynihan Train Hall", body:`<div class="opts"><div class="opt"><div class="lbl">À pied : 5 min. Descendez la 9e Avenue jusqu'à la 33e, puis à gauche jusqu'à l'entrée du hall sur la 8e Avenue. Le food hall est à l'intérieur, au sec.</div><div class="btns">${walk(P.moyn)}</div></div></div>`},
  {t:"12:30", m:750, h:"Déjeuner · Moynihan Food Hall", body:`<p>Le food hall de la gare : on s'assoit, on scanne le QR code de la table et on commande dans tous les comptoirs à la fois (Jacob's Pickles, ramen, pastrami, bar). Ouvert de 10h à 22h.</p><p class="sub">Moynihan Train Hall, 421 8th Ave</p><div class="btns">${walk(P.moyn)}</div>`},
- {t:"14:00", m:840, move:true, h:"NJ Transit → Newark Penn, puis Uber", body:`<div class="opts"><div class="opt"><div class="lbl">Train <b>NJ Transit</b> de <b>New York Penn Station</b> à <b>Newark Penn Station</b>, environ 20 min. Puis <b>Uber</b> jusqu'à Hometown Arcade, 15 à 20 min (environ 7 km).</div><div class="btns">${metro(P.nwk,"Train jusqu'à Newark")}<a class="btn solid" target="_blank" rel="noopener" href="${G(P.hometown,'driving')}">🚗 Newark → Arcade</a></div></div></div>`},
- {t:"14:45", m:885, h:"Hometown Arcade", body:`<p>Salle d'arcade rétro et moderne : bornes classiques, beaucoup de jeux de tir au pistolet, flippers, consoles en libre accès et un bar à cocktails sur le thème du jeu vidéo. <b>20 $ la journée en illimité</b>, avec un bracelet.</p><p class="sub">85 Washington St, Bloomfield · 12h–21h le jeudi</p><div class="btns">${walk(P.hometown)}</div>`},
- {t:"17:00", m:1020, move:true, h:"Bloomfield → Newark", body:`<div class="opts">
-   <div class="opt"><div class="lbl"><b>Uber</b> : 15 à 20 min jusqu'à l'Ironbound (Ferry Street) pour dîner, ou directement au Prudential Center. Le plus simple sous la pluie.</div><div class="btns"><a class="btn solid" target="_blank" rel="noopener" href="${G(P.ironbound,'driving')}">🚗 Itinéraire en voiture</a></div></div>
-   </div>`},
- {t:"17:30", m:1050, h:"Dîner dans l'Ironbound", body:`<p>Le quartier portugais et brésilien derrière Newark Penn Station : Ferry Street, ses rodizios et ses pâtisseries. À 10–15 min à pied du stade.</p><div class="btns">${walk(P.ironbound,"Ironbound")}</div>`},
+ {t:"14:00", m:840, move:true, h:"Penn Station → Newark par le PATH", body:`<div class="opts"><div class="opt"><div class="lbl">
+   <b>1.</b> À pied jusqu'à la station <b>33rd St</b> du PATH : sortie 7e Avenue, puis la 33e Rue vers l'est jusqu'à la 6e Avenue (Herald Square, en face de Macy's). 6 à 8 min.<br>
+   <b>2.</b> Train <span class="bullet bP">PATH</span> <b>33rd St → Journal Square</b>, environ 15 min.<br>
+   <b>3.</b> À Journal Square, changer pour un train <b>Newark</b> (ligne Newark – World Trade Center), environ 10 min jusqu'au terminus <b>Newark Penn Station</b>.<br>
+   Environ 3 $ par personne, à payer au tourniquet par carte sans contact ou au distributeur. 35 à 40 min au total.</div>
+   <div class="btns">${walk(P.path33,"Aller au PATH 33rd St")}${metro(P.nwk,"Itinéraire jusqu'à Newark")}</div></div></div>`},
+ {t:"14:45", m:885, move:true, h:"Newark Penn → musée", body:`<div class="opts"><div class="opt"><div class="lbl">Tramway <b>Newark Light Rail</b>, branche <b>Broad Street</b>, depuis l'intérieur de la gare. Descendre à <b>Washington Park</b>, 3 arrêts, environ 5 min, puis 2 min à pied. Ticket dans l'appli NJ Transit (Light Rail) ou au distributeur du quai, à valider avant de monter. Sinon Uber 5 min, ou 15 min à pied.</div><div class="btns">${metro(P.museum)}${walk(P.museum)}</div></div></div>`},
+ {t:"15:00", m:900, h:"Newark Museum of Art et planétarium", body:`<p>Le plus grand musée du New Jersey : collection tibétaine, maison victorienne Ballantine House, art américain, et le <b>planétarium</b>. Les séances du planétarium sont à heure fixe et payantes en plus : demandez les horaires à l'accueil dès l'arrivée.</p><p class="sub">49 Washington St · jeudi 12h–17h</p><div class="btns">${walk(P.museum)}</div>`},
+ {t:"16:45", m:1005, h:"Bonus : Cathedral Basilica of the Sacred Heart", body:`<p>Cathédrale gothique de style français, l'une des plus belles des États-Unis. Gratuite, ouverte jusqu'à 19h : entrée par la petite porte latérale sous l'auvent vert. 10 min en Uber depuis le musée.</p><div class="btns"><a class="btn solid" target="_blank" rel="noopener" href="${G(P.cathedral,'driving')}">🚗 Itinéraire en voiture</a></div>`},
+ {t:"17:30", m:1050, h:"Dîner dans l'Ironbound", body:`<p>Le quartier portugais et brésilien derrière Newark Penn Station. Rodizio chez <b>Brasilia Grill</b> (5 min de la gare), ou plus léger avec pastéis de nata chez <b>Teixeira's Bakery</b>. Le pourboire est souvent ajouté d'office sur l'addition.</p><div class="btns">${walk(P.brasilia,"Brasilia Grill")}${walk(P.teixeira,"Teixeira's")}</div>`},
  {t:"18:00", m:1080, move:true, h:"Vers le Prudential Center", body:`<div class="opts"><div class="opt"><div class="lbl">À pied : 10 à 15 min depuis Ferry Street ou la gare. Les portes ouvrent environ une heure avant le match.</div><div class="btns">${walk(P.pru)}</div></div></div>`},
  {t:"19:00", m:1140, h:"Match · Devils vs Capitals", body:`<p>New Jersey Devils contre Washington Capitals, au Prudential Center. Coup d'envoi à 19h, fin vers 21h30.</p><p class="sub">25 Lafayette St, Newark</p><div class="btns">${walk(P.pru)}</div>`},
- {t:"21:45", m:1305, move:true, h:"Retour vers l'hôtel", body:`<div class="opts"><div class="opt"><div class="lbl">À pied jusqu'à <b>Newark Penn Station</b> (10 min), puis train <b>NJ Transit</b> jusqu'à <b>New York Penn Station</b>, environ 20 min. Ensuite 20 min à pied jusqu'à l'hôtel, ou métro <span class="bullet b1">1</span> de 34 St à 50 St.</div><div class="btns">${metro(P.hotel,"Itinéraire retour")}</div></div></div>`},
+ {t:"21:45", m:1305, move:true, h:"Retour vers l'hôtel par le PATH", body:`<div class="opts"><div class="opt"><div class="lbl">À pied jusqu'à <b>Newark Penn Station</b> (10 min). <span class="bullet bP">PATH</span> direction World Trade Center jusqu'à <b>Journal Square</b>, puis changer pour <b>33rd St</b>. De 33rd St, 15 min à pied jusqu'à l'hôtel en remontant la 6e Avenue, ou un taxi. Environ 40 min au total. Le soir, les trains vers 33rd St passent moins souvent : si l'attente est longue, restez dans le train jusqu'à World Trade Center et prenez le métro <span class="bullet bN">R</span> jusqu'à 49 St.</div><div class="btns">${metro(P.hotel,"Itinéraire retour")}</div></div></div>`},
 ];
 let n=0;
 document.getElementById("steps").innerHTML = steps.map(s=>`<li class="step${s.move?' move':''}" data-m="${s.m}">
@@ -152,7 +161,7 @@ try{
 </script>
 <script>
 // Auto-refresh: if a newer version is published, reload this page once with ?v=<latest>
-(function(){var PV="13";
+(function(){var PV="14";
   try{fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
     if(j&&j.v&&j.v!==PV&&location.search.indexOf("v="+j.v)<0){location.replace(location.pathname+"?v="+j.v);}
   }).catch(function(){});}catch(e){}
