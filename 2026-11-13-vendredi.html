@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}</style>
+<title>NYC · Vendredi 13 nov.</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one column like a subway strip map — stops on a vertical line, each with "go" buttons */
+:root{
+  --bg:#f5f6f4; --card:#ffffff; --fg:#16181a; --muted:#5d6468; --line:#d9ddda;
+  --accent:#0a6e52; --accent-soft:#e2f0ea; --now:#f2b705;
+  --l1:#ee352e; --lE:#0039a6;
+  --display:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111416; --card:#1a1e21; --fg:#eef1ef; --muted:#9aa3a7; --line:#2c3236;
+  --accent:#4fc39a; --accent-soft:#16312a; --now:#f2b705; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111416; --card:#1a1e21; --fg:#eef1ef; --muted:#9aa3a7; --line:#2c3236;
+  --accent:#4fc39a; --accent-soft:#16312a; --now:#f2b705; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 var(--display);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header h1{font-size:30px;line-height:1.1;font-weight:800;margin:0;text-wrap:balance;letter-spacing:-.01em}
+header p{margin:6px 0 0;color:var(--muted)}
+.eyebrow{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.map{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px}
+.map svg{display:block;width:100%;height:auto}
+.legend{font-size:13px;color:var(--muted);padding:4px 8px 6px}
+.all{display:flex;flex-wrap:wrap;gap:8px}
+ol.steps{list-style:none;margin:0;padding:0;position:relative}
+ol.steps::before{content:"";position:absolute;left:19px;top:8px;bottom:8px;width:4px;border-radius:2px;background:var(--line)}
+.step{position:relative;padding-left:52px;padding-bottom:22px}
+.dot{position:absolute;left:6px;top:2px;width:30px;height:30px;border-radius:50%;background:var(--card);border:4px solid var(--accent);
+  display:grid;place-items:center;font:600 13px var(--mono);color:var(--fg)}
+.step.move .dot{border-style:dashed;border-color:var(--muted);font-size:15px}
+.step.now .dot{border-color:var(--now);box-shadow:0 0 0 5px color-mix(in srgb,var(--now) 30%,transparent)}
+.time{font:600 14px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.now-tag{display:none;margin-left:8px;background:var(--now);color:#1a1400;border-radius:999px;padding:1px 8px;font:600 11px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.step.now .now-tag{display:inline-block}
+.step h2{font-size:20px;margin:2px 0 4px;line-height:1.2}
+.step p{margin:0 0 8px;color:var(--fg)}
+.step .sub{color:var(--muted);font-size:14px}
+.ideas{margin:4px 0 10px;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-size:15px}
+.ideas li::before{content:"→ ";color:var(--accent)}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.opt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.opt .lbl{font-size:14px;margin-bottom:8px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+a.btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:600;font-size:14px;
+  padding:9px 13px;border-radius:999px;border:1.5px solid var(--accent);color:var(--accent);background:transparent;min-height:40px}
+a.btn.solid{background:var(--accent);color:var(--bg)}
+a.btn:focus-visible{outline:3px solid var(--now);outline-offset:2px}
+.bullet{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;color:#fff;font:800 13px var(--display);vertical-align:-5px;margin:0 2px}
+.b1{background:var(--l1)} .bE{background:var(--lE)} .bN{background:#fccc0a;color:#111} .bB{background:#ff6319} .bA{background:#0039a6} .bP{background:#d93a30;width:auto;padding:0 6px;border-radius:4px;font-size:11px}
+.tips{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:14px}
+.tips b{display:block;margin-bottom:4px}
+.tips ul{margin:0;padding-left:18px}
+footer{font-size:13px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-width:0}
+.stats b{display:block;font:600 22px var(--mono);font-variant-numeric:tabular-nums;color:var(--accent);line-height:1.2}
+.stats span{font-size:13px;color:var(--muted)}
+.stats-note{font-size:13px;color:var(--muted);margin:-12px 0 0}
+.back{display:inline-block;margin-bottom:8px;text-decoration:none;color:var(--muted)}
+</style>
+
+<div class="wrap">
+  <header>
+    <a class="eyebrow back" href="./">← Tous les jours</a><div class="eyebrow">Jour 6 · Vendredi 13 novembre</div>
+    <h1>Madame Tussauds, Museum of the Moving Image et Broadway</h1>
+    <p>Journée de pluie au sec : les statues de cire à Times Square le matin, déjeuner grec à Astoria, les coulisses du cinéma l'après-midi, et spectacle à Broadway à 19h.</p>
+  </header>
+
+  <div class="stats" aria-label="Estimation de marche">
+    <div><b>≈ 4 km</b><span>à pied dans la journée</span></div>
+    <div><b>≈ 5 500</b><span>pas</span></div>
+    <div><b>≈ 50 min</b><span>de marche</span></div>
+  </div>
+  <p class="stats-note">Avec le métro N ou W aller-retour pour Astoria. Journée tranquille avant le départ.</p>
+
+  <ol class="steps" id="steps"></ol>
+
+  <div class="tips">
+    <b>Pratique</b>
+    <ul>
+      <li>Pluie toute la journée, autour de 6 à 9 °C avec du vent : parapluie et couche chaude.</li>
+      <li>Madame Tussauds : billets en ligne moins chers qu'au guichet, à partir de 34 $.</li>
+      <li>Museum of the Moving Image : ouvert jusqu'à 20h le vendredi, et gratuit à partir de 16h.</li>
+      <li>B&amp;H ferme à 14h aujourd'hui et toute la journée demain (Shabbat).</li>
+    </ul>
+  </div>
+
+  <footer>Ajoutez la page à l'écran d'accueil pour l'ouvrir en un tap.</footer>
+</div>
+
+<script>
+const DAY="2026-11-13", END=1290;
+const P = {
+  tussauds: {q:"Madame Tussauds New York, 234 W 42nd St, New York, NY 10036"},
+  ts:       {q:"Times Sq-42 St Station (N W), New York, NY"},
+  astoria:  {q:"36 Av Station (N W), Astoria, Queens, NY"},
+  greek:    {q:"Greek restaurants near 36 Av Station, Astoria, NY"},
+  momi:     {q:"Museum of the Moving Image, 36-01 35th Ave, Astoria, NY 11106"},
+  tsq:      {q:"Times Square, New York, NY"},
+  hotel:    {q:"150 W 48th St, New York, NY 10036"},
+};
+const G = (p,mode)=>"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(p.q)+"&travelmode="+(mode||"walking");
+const walk = (p,label)=>`<a class="btn" target="_blank" rel="noopener" href="${G(p)}">🚶 ${label||"Y aller à pied"}</a>`;
+const metro = (p,label)=>`<a class="btn solid" target="_blank" rel="noopener" href="${G(p,'transit')}">🚇 ${label||"Y aller en métro"}</a>`;
+const steps = [
+ {t:"10:15", m:615, move:true, h:"Hôtel → Madame Tussauds", body:`<div class="opts"><div class="opt"><div class="lbl">À pied : environ 700 m, 10 min. Descendez la 7e Avenue jusqu'à la 42e, puis à droite. L'entrée est sous la grande main géante, entre la 7e et la 8e Avenue.</div><div class="btns">${walk(P.tussauds)}</div></div></div>`},
+ {t:"10:30", m:630, h:"Madame Tussauds New York", body:`<p>Les statues de cire des célébrités, l'univers Marvel, des décors de films et des espaces interactifs.</p><p class="sub">234 W 42nd St · 10h–21h · à partir de 34 $ en ligne</p><div class="btns">${walk(P.tussauds)}<a class="btn solid" target="_blank" rel="noopener" href="https://www.madametussauds.com/new-york/">Billets</a></div>`},
+ {t:"12:30", m:750, move:true, h:"Métro vers Astoria", body:`<div class="opts"><div class="opt"><div class="lbl">Métro <span class="bullet bN">N</span> ou <span class="bullet bN">W</span> à <b>Times Sq – 42 St</b> (2 min de Madame Tussauds), direction <b>Astoria – Ditmars Blvd</b> (Queens). Descendre à <b>36 Av</b>, environ 20 min. Le métro sort à l'air libre après le pont : c'est normal.</div><div class="btns">${metro(P.astoria)}</div></div></div>`},
+ {t:"13:00", m:780, h:"Déjeuner grec à Astoria", body:`<p>Astoria est le quartier grec historique de New York : tavernes, grillades et pâtisseries, surtout autour de 30th Ave et Broadway (Queens). Un déjeuner rapide avant le musée, à 10 min à pied.</p><div class="btns"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("restaurant grec Astoria near 36-01 35th Ave")}">Restaurants autour</a></div>`},
+ {t:"14:00", m:840, h:"Museum of the Moving Image", body:`<p>Les coulisses du cinéma et de la télévision : caméras anciennes, accessoires de tournage, maquillage et effets spéciaux, bruitage et doublage interactifs, et l'exposition Jim Henson avec les Muppets et Labyrinth.</p><p class="sub">36-01 35th Ave, Astoria · 10h30–20h le vendredi · environ 20 $, gratuit à partir de 16h</p><div class="btns">${walk(P.momi)}</div>`},
+ {t:"16:15", m:975, move:true, h:"Retour vers Times Square", body:`<div class="opts"><div class="opt"><div class="lbl">Métro <span class="bullet bN">N</span> ou <span class="bullet bN">W</span> à <b>36 Av</b> (10 min à pied du musée), direction Manhattan. Descendre à <b>Times Sq – 42 St</b> ou <b>49 St</b> (à 2 min de l'hôtel), environ 25 min.</div><div class="btns">${metro(P.hotel,"Retour à l'hôtel")}</div></div></div>`},
+ {t:"17:30", m:1050, h:"Dîner avant le spectacle", body:`<p>Autour de Times Square ou sur la 9e Avenue (Hell's Kitchen), avec une marge pour être au théâtre vers 18h40.</p>`},
+ {t:"19:00", m:1140, h:"Spectacle à Broadway", body:`<p>Arrivez 20 minutes avant : contrôle des sacs à l'entrée et placement par les ouvreurs. Le spectacle dure en général 2h30 avec l'entracte.</p><div class="btns">${walk(P.tsq,"Times Square")}</div>`},
+];
+let n=0;
+document.getElementById("steps").innerHTML = steps.map(s=>`<li class="step${s.move?' move':''}" data-m="${s.m}">
+  <div class="dot">${s.move?"↓":++n}</div>
+  <div class="time">${s.t.replace(':','h')}<span class="now-tag">Maintenant</span></div>
+  <h2>${s.h}</h2>${s.body}</li>`).join("");
+try{
+  const f=new Intl.DateTimeFormat("en-CA",{timeZone:"America/New_York",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"});
+  const p=Object.fromEntries(f.formatToParts(new Date()).map(x=>[x.type,x.value]));
+  if(`${p.year}-${p.month}-${p.day}`===DAY){
+    const mins=(+p.hour)*60+(+p.minute); let cur=null;
+    document.querySelectorAll(".step").forEach(li=>{ if(mins>=+li.dataset.m-15) cur=li; });
+    if(cur && mins<END) cur.classList.add("now");
+  }
+}catch(e){}
+</script>
+<script>
+// Auto-refresh: if a newer version is published, reload this page once with ?v=<latest>
+(function(){var PV="15";
+  try{fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
+    if(j&&j.v&&j.v!==PV&&location.search.indexOf("v="+j.v)<0){location.replace(location.pathname+"?v="+j.v);}
+  }).catch(function(){});}catch(e){}
+})();
+</script>
+</html>
